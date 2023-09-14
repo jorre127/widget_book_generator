@@ -1,4 +1,4 @@
-name: flutter_navigation_generator
+name: widget_book_generator_annotations
 description: Generate your widgetbook components by annotating your widgets.
 version: 1.0.0
 homepage: https://github.com/jorre127/widget_book_generator
