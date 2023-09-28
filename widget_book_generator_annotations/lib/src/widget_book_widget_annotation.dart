@@ -1,0 +1,3 @@
+class WidgetBookWidget {
+  const WidgetBookWidget();
+}
