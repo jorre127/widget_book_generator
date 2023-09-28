@@ -15,7 +15,7 @@ class WidgetConfig {
       };
 
   factory WidgetConfig.fromMap(Map<String, dynamic> map) => WidgetConfig(
-        parameters: map['parameters'].map((parameter) => Parameter.fromMap(parameter)).toList(),
+        parameters: (map['parameters'] as List).map((parameter) => Parameter.fromMap(parameter)).toList(),
         name: map['name'],
       );
 }
