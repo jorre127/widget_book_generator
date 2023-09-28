@@ -1,0 +1,3 @@
+class UseCasesImportBuilder {
+  UseCasesImportBuilder._();
+}

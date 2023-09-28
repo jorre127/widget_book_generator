@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:widget_book_generator/src/type_checkers.dart';
-import 'package:widget_book_generator/src/util/widget_config_creator.dart';
+import 'package:widget_book_generator/src/util/config_creators/widget_config_creator.dart';
 
 class WidgetBookWidgetConfigGenerator implements Generator {
   @override

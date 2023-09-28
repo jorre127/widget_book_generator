@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
-import 'package:code_builder/code_builder.dart';
-import 'package:dart_style/dart_style.dart';
 import 'package:glob/glob.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:widget_book_generator/src/models/widget_config.dart';
+import 'package:widget_book_generator/src/util/code_creators/use_cases_builder.dart';
+import 'package:widget_book_generator/src/util/extensions/spec_extension.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 class WidgetBookWidgetGenerator extends GeneratorForAnnotation<App> {
@@ -22,22 +22,6 @@ class WidgetBookWidgetGenerator extends GeneratorForAnnotation<App> {
       widgetConfigs.addAll(parsedConfigs);
     }
 
-    final library = Library((libraryBuilder) => libraryBuilder
-      ..body.addAll(
-        widgetConfigs
-            .map(
-              (widget) => Class((classBuilder) => classBuilder..name = widget.name),
-            )
-            .toList(),
-      ));
-
-    final emitter = DartEmitter(
-      allocator: Allocator.simplePrefixing(),
-      orderDirectives: true,
-      useNullSafetySyntax: true,
-    );
-    print('HERE');
-
-    return DartFormatter().format(library.accept(emitter).toString());
+    return UseCasesBuilder.createUseCasesContent(widgetConfigs).toDart();
   }
 }
