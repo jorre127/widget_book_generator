@@ -5,5 +5,6 @@ import 'package:widget_book_generator/src/generators/widget_book_widget_generato
 Builder widgetBookWidgetBuilder(BuilderOptions options) {
   return LibraryBuilder(
     WidgetBookWidgetGenerator(),
+    generatedExtension: '.json',
   );
 }

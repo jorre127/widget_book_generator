@@ -1,19 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:build/build.dart';
 import 'package:source_gen/source_gen.dart';
-import 'package:widget_book_generator_annotations/widget_book_generator_annotations.dart';
-
-const TypeChecker _typeChecker = TypeChecker.fromRuntime(WidgetBookWidget);
+import 'package:widget_book_generator/src/type_checkers.dart';
+import 'package:widget_book_generator/src/util/widget_config_creator.dart';
 
 class WidgetBookWidgetGenerator implements Generator {
   @override
   Future<String?> generate(LibraryReader library, BuildStep buildStep) async {
-    final classes = library.classes.where(_typeChecker.hasAnnotationOf);
-    final string = StringBuffer();
-    for (var element in classes) {
-      string.write(element.name);
-    }
-    return string.toString();
+    final configs = library.classes.where(widgetBookWidgetTypeChecker.hasAnnotationOf).map(WidgetConfigCreator.create).expand((element) => element).toList();
+    return configs.isEmpty ? null : jsonEncode(configs.map((config) => config.toMap()).toList());
   }
 }

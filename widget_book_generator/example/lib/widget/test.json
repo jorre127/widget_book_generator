@@ -1,0 +1,31 @@
+[
+    {
+        "name": "Test",
+        "parameters": [
+            {
+                "name": "test1",
+                "isRequired": true,
+                "isNullable": false,
+                "defaultValue": null
+            },
+            {
+                "name": "test2",
+                "isRequired": false,
+                "isNullable": false,
+                "defaultValue": "'name'"
+            },
+            {
+                "name": "test3",
+                "isRequired": false,
+                "isNullable": false,
+                "defaultValue": "true"
+            },
+            {
+                "name": "test4",
+                "isRequired": false,
+                "isNullable": true,
+                "defaultValue": "5"
+            }
+        ]
+    }
+]

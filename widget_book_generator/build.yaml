@@ -2,7 +2,7 @@ builders:
   widget_book_widget_builder:
     import: "package:widget_book_generator/builder.dart"
     builder_factories: ["widgetBookWidgetBuilder"]
-    build_extensions: {".dart": [".g.dart"]}
+    build_extensions: {".dart": [".json"]}
     runs_before: ["widget_book_generator"]
     auto_apply: dependents
     build_to: source
