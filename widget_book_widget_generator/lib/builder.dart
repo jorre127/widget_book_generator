@@ -6,7 +6,7 @@ import 'package:widget_book_widget_generator/src/generators/widget_book_widget_g
 Builder widgetBookWidgetConfigBuilder(BuilderOptions options) {
   return LibraryBuilder(
     WidgetBookWidgetConfigGenerator(),
-    formatOutput: (generated) => generated.replaceAll(RegExp(r'//.*|\s'), ''),
+    formatOutput: (generated) => generated.replaceAll(RegExp(r'//.*|'), ''),
     generatedExtension: '.widgetconfig.json',
   );
 }

@@ -4,36 +4,80 @@
 // WidgetBookWidgetGenerator
 // **************************************************************************
 
-import 'package:example/widget/button.dart';
-import 'package:example/widget/test.dart';
+import 'package:example/widget/flutter_template_input_field.dart';
+import 'package:example/widget/test_back_button.dart';
+import 'package:example/widget/test_button.dart';
+import 'package:example/widget/test_checkbox.dart';
+import 'package:example/widget/test_progress_indicator.dart';
+import 'package:example/widget/test_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
 @UseCase(
-  name: 'Button',
-  type: Button,
+  name: 'TestProgressIndicator',
+  type: TestProgressIndicator,
 )
-Widget buttonUseCase(BuildContext context) => Scaffold(
+Widget testProgressIndicatorUseCase(BuildContext context) => Scaffold(
+    body: Center(
+        child: TestProgressIndicator(
+            dark: context.knobs.boolean(label: 'dark', initialValue: true))));
+@UseCase(
+  name: 'TestButton',
+  type: TestButton,
+)
+Widget testButtonUseCase(BuildContext context) => Scaffold(
         body: Center(
-            child: Button(
-      onTapped: () {},
+            child: TestButton(
       text: context.knobs.string(label: 'text', initialValue: ''),
-      subText: context.knobs.string(label: 'subText', initialValue: ''),
-      color: context.knobs.color(label: 'color', initialValue: Colors.blue),
-      enabled: context.knobs.boolean(label: 'enabled', initialValue: true),
-      key: null,
+      onClick: () => {},
+      isExpanded:
+          context.knobs.boolean(label: 'isExpanded', initialValue: true),
+      isEnabled: context.knobs.boolean(label: 'isEnabled', initialValue: true),
+      buttonType: ButtonType.regular,
     )));
 @UseCase(
-  name: 'TestWidget',
-  type: TestWidget,
+  name: 'FlutterTemplateInputField',
+  type: FlutterTemplateInputField,
 )
-Widget testWidgetUseCase(BuildContext context) => Scaffold(
+Widget flutterTemplateInputFieldUseCase(BuildContext context) => Scaffold(
         body: Center(
-            child: TestWidget(
-      test1: context.knobs.string(label: 'test1', initialValue: ''),
-      test2: context.knobs.string(label: 'test2', initialValue: 'name'),
-      test3: context.knobs.boolean(label: 'test3', initialValue: true),
-      test4: context.knobs.int.input(label: 'test4', initialValue: 5),
-      key: null,
+            child: FlutterTemplateInputField(
+      hint: context.knobs.string(label: 'hint', initialValue: ''),
+      onChanged: (String value) => {},
+      autoFillHints: const [],
+      enabled: context.knobs.boolean(label: 'enabled', initialValue: true),
+      controller: null,
+    )));
+@UseCase(
+  name: 'TestBackButton',
+  type: TestBackButton,
+)
+Widget testBackButtonUseCase(BuildContext context) => Scaffold(
+        body: Center(
+            child: TestBackButton(
+      onClick: () => {},
+      isLight: context.knobs.boolean(label: 'isLight', initialValue: true),
+      fullScreen:
+          context.knobs.boolean(label: 'fullScreen', initialValue: false),
+    )));
+@UseCase(
+  name: 'TestCheckBox',
+  type: TestCheckBox,
+)
+Widget testCheckBoxUseCase(BuildContext context) => Scaffold(
+        body: Center(
+            child: TestCheckBox(
+      value: context.knobs.boolean(label: 'value', initialValue: true),
+      onChanged: (bool value) => {},
+    )));
+@UseCase(
+  name: 'TestSwitch',
+  type: TestSwitch,
+)
+Widget testSwitchUseCase(BuildContext context) => Scaffold(
+        body: Center(
+            child: TestSwitch(
+      value: context.knobs.boolean(label: 'value', initialValue: true),
+      onChanged: (bool value) => {},
     )));

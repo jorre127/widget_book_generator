@@ -25,10 +25,7 @@ class WidgetParameter {
         isNullable = element.type.nullabilitySuffix == NullabilitySuffix.question,
         defaultValue = element.defaultValueCode,
         isNamed = element.isNamed,
-        type = DataType.fromDartType(
-          type: element.type.getDisplayString(withNullability: true),
-          hasParameters: element.parameters.isNotEmpty,
-        );
+        type = DataType.fromDartType(type: element.type);
 
   Map<String, dynamic> toMap() => {
         'name': name,

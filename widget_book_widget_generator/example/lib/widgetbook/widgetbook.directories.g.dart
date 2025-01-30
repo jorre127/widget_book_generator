@@ -17,17 +17,45 @@ final directories = <_i1.WidgetbookNode>[
     name: 'widget',
     children: [
       _i1.WidgetbookLeafComponent(
-        name: 'Button',
+        name: 'FlutterTemplateInputField',
         useCase: _i1.WidgetbookUseCase(
-          name: 'Button',
-          builder: _i2.buttonUseCase,
+          name: 'FlutterTemplateInputField',
+          builder: _i2.flutterTemplateInputFieldUseCase,
         ),
       ),
       _i1.WidgetbookLeafComponent(
-        name: 'TestWidget',
+        name: 'TestBackButton',
         useCase: _i1.WidgetbookUseCase(
-          name: 'TestWidget',
-          builder: _i2.testWidgetUseCase,
+          name: 'TestBackButton',
+          builder: _i2.testBackButtonUseCase,
+        ),
+      ),
+      _i1.WidgetbookLeafComponent(
+        name: 'TestButton',
+        useCase: _i1.WidgetbookUseCase(
+          name: 'TestButton',
+          builder: _i2.testButtonUseCase,
+        ),
+      ),
+      _i1.WidgetbookLeafComponent(
+        name: 'TestCheckBox',
+        useCase: _i1.WidgetbookUseCase(
+          name: 'TestCheckBox',
+          builder: _i2.testCheckBoxUseCase,
+        ),
+      ),
+      _i1.WidgetbookLeafComponent(
+        name: 'TestProgressIndicator',
+        useCase: _i1.WidgetbookUseCase(
+          name: 'TestProgressIndicator',
+          builder: _i2.testProgressIndicatorUseCase,
+        ),
+      ),
+      _i1.WidgetbookLeafComponent(
+        name: 'TestSwitch',
+        useCase: _i1.WidgetbookUseCase(
+          name: 'TestSwitch',
+          builder: _i2.testSwitchUseCase,
         ),
       ),
     ],

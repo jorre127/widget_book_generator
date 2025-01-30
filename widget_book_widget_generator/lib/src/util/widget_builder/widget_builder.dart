@@ -10,7 +10,8 @@ class WidgetBuilder {
   static Expression buildWidgetFromConf(WidgetConfig child) {
     return Reference(child.name).newInstance(
       [],
-      Map.fromEntries(child.parameters.where((parameter) => parameter.isNamed).map((parameter) => MapEntry(parameter.name, _buildKnob(parameter)))),
+      Map.fromEntries(
+          child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key).map((parameter) => MapEntry(parameter.name, _buildKnob(parameter)))),
     );
   }
 
@@ -23,8 +24,8 @@ class WidgetBuilder {
       DataTypeEnum.bool => "context.knobs.boolean(label: '${parameter.name}', initialValue:${defaultValue} )",
       DataTypeEnum.color => "context.knobs.color(label: '${parameter.name}', initialValue:${defaultValue} )",
       DataTypeEnum.date => "context.knobs.dateTime(label: '${parameter.name}', initialValue:${defaultValue} )",
-      DataTypeEnum.custom || DataTypeEnum.function => defaultValue,
-      null => throw UnimplementedError(),
+      DataTypeEnum.custom || DataTypeEnum.function || DataTypeEnum.key || DataTypeEnum.list => defaultValue,
+      null => defaultValue,
     };
     return Reference(knob);
   }
