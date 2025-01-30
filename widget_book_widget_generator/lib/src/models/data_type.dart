@@ -31,7 +31,6 @@ class DataType {
       'Color' => DataType(name: 'Color', isEnum: false, defaultValue: 'Colors.blue', type: DataTypeEnum.color),
       'DateTime' => DataType(name: 'DateTime', isEnum: false, defaultValue: 'DateTime.now()', type: DataTypeEnum.date),
       'Key' || 'Key?' => DataType(name: 'Key', isEnum: false, defaultValue: 'null', type: DataTypeEnum.key),
-      ('void Function()' || 'Future<void> Function()') => DataType(name: 'Function', isEnum: false, defaultValue: '() {}', type: DataTypeEnum.function),
       _ when isFunction => DataType(name: typeString, isEnum: false, defaultValue: _getDefaultValueFunction(type as FunctionType), type: DataTypeEnum.function),
       _ when isList => DataType(name: typeString, isEnum: false, defaultValue: 'const []', type: DataTypeEnum.list),
       _ => DataType(name: typeString, isEnum: false, defaultValue: 'null', type: DataTypeEnum.custom),
