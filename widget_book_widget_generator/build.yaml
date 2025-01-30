@@ -1,0 +1,16 @@
+builders:
+  widget_book_widget_config_builder:
+    import: "package:widget_book_widget_generator/builder.dart"
+    builder_factories: ["widgetBookWidgetConfigBuilder"]
+    build_extensions: {".dart": [".widgetconfig.json"]}
+    runs_before: ["widget_book_widget_builder", "widgetbook_generator|app_builder", "widgetbook_generator:use_case_builder", "widgetbook_generator:telemetry"]
+    auto_apply: dependents
+    build_to: cache
+  
+  widget_book_widget_builder:
+    import: "package:widget_book_widget_generator/builder.dart"
+    builder_factories: ["widgetBookWidgetBuilder"]
+    build_extensions: {".dart": [".usecases.dart"]}
+    runs_before: ["widgetbook_generator|app_builder", "widgetbook_generator:use_case_builder", "widgetbook_generator:telemetry"]
+    auto_apply: dependents
+    build_to: source

@@ -8,7 +8,7 @@
             "name": "Example",
             "request": "launch",
             "type": "dart",
-            "program": "widget_book_generator/example/lib/main.dart",
+            "program": "widget_book_widget_generator/example/lib/widgetbook/widgetbook.dart",
         },
     ]
 }

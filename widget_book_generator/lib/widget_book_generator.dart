@@ -1,1 +1,0 @@
-library widget_book_generator;
