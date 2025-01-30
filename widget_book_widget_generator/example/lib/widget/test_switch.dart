@@ -21,7 +21,7 @@ class TestSwitch extends StatelessWidget {
         width: 42,
         decoration: BoxDecoration(
           color: value ? Colors.blue : Colors.blueGrey,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(99999),
         ),
         child: AnimatedAlign(
           duration: const Duration(microseconds: 500),

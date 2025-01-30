@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_book_widget_generator_annotations/widget_book_widget_generator_annotations.dart';
 
@@ -16,7 +17,7 @@ class TestCheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (Platform.isIOS) {
+    if (!kIsWeb && Platform.isIOS) {
       return GestureDetector(
         onTap: () => onChanged(!value),
         child: Container(

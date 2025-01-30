@@ -30,7 +30,7 @@ Widget testButtonUseCase(BuildContext context) => Scaffold(
         body: Center(
             child: TestButton(
       text: context.knobs.string(label: 'text', initialValue: ''),
-      onClick: () => {},
+      onClick: () {},
       isExpanded:
           context.knobs.boolean(label: 'isExpanded', initialValue: true),
       isEnabled: context.knobs.boolean(label: 'isEnabled', initialValue: true),
@@ -44,7 +44,7 @@ Widget flutterTemplateInputFieldUseCase(BuildContext context) => Scaffold(
         body: Center(
             child: FlutterTemplateInputField(
       hint: context.knobs.string(label: 'hint', initialValue: ''),
-      onChanged: (String value) => {},
+      onChanged: (String value) {},
       autoFillHints: const [],
       enabled: context.knobs.boolean(label: 'enabled', initialValue: true),
       controller: null,
@@ -56,7 +56,7 @@ Widget flutterTemplateInputFieldUseCase(BuildContext context) => Scaffold(
 Widget testBackButtonUseCase(BuildContext context) => Scaffold(
         body: Center(
             child: TestBackButton(
-      onClick: () => {},
+      onClick: () {},
       isLight: context.knobs.boolean(label: 'isLight', initialValue: true),
       fullScreen:
           context.knobs.boolean(label: 'fullScreen', initialValue: false),
@@ -69,7 +69,7 @@ Widget testCheckBoxUseCase(BuildContext context) => Scaffold(
         body: Center(
             child: TestCheckBox(
       value: context.knobs.boolean(label: 'value', initialValue: true),
-      onChanged: (bool value) => {},
+      onChanged: (bool value) {},
     )));
 @UseCase(
   name: 'TestSwitch',
@@ -79,5 +79,5 @@ Widget testSwitchUseCase(BuildContext context) => Scaffold(
         body: Center(
             child: TestSwitch(
       value: context.knobs.boolean(label: 'value', initialValue: true),
-      onChanged: (bool value) => {},
+      onChanged: (bool value) {},
     )));

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_book_widget_generator_annotations/widget_book_widget_generator_annotations.dart';
 
@@ -106,7 +107,7 @@ class TestButton extends StatelessWidget {
         ),
       ],
     );
-    if (Platform.isIOS) {
+    if (!kIsWeb && Platform.isIOS) {
       return GestureDetector(
         onTap: isEnabled ? onClick : null,
         child: AnimatedContainer(
