@@ -8,7 +8,7 @@ class UseCasesBuilder {
 
   static Library createUseCasesContent(List<WidgetConfig> configs) => Library(
         (libraryBuilder) => libraryBuilder
-          ..directives.addAll(UseCasesImportBuilder.createImports())
+          ..directives.addAll(UseCasesImportBuilder.createImports(configs))
           ..body.add(UseCasesBodyBuilder.createUseCasesBody(configs)),
       );
 }

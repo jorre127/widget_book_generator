@@ -3,16 +3,19 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:widget_book_generator/src/models/parameter.dart';
 import 'package:widget_book_generator/src/models/widget_config.dart';
 import 'package:widget_book_generator/src/type_checkers.dart';
+import 'package:widget_book_generator/src/util/import_resolver.dart';
 
 class WidgetConfigCreator {
-  WidgetConfigCreator._();
+  final ImportResolver _importResolver;
 
-  static List<WidgetConfig> create(ClassElement widget) {
+  WidgetConfigCreator(List<LibraryElement> libs) : _importResolver = ImportResolver(libs);
+
+  List<WidgetConfig> create(ClassElement widget) {
     final annotations = widgetBookWidgetTypeChecker.annotationsOf(widget, throwOnUnresolved: false);
     return annotations.map((annotation) => _createWidgetConfig(widget, annotation)).toList();
   }
 
-  static WidgetConfig _createWidgetConfig(
+  WidgetConfig _createWidgetConfig(
     ClassElement widget,
     DartObject annotation,
   ) {
@@ -23,6 +26,7 @@ class WidgetConfigCreator {
     return WidgetConfig(
       parameters: parameters,
       name: name,
+      import: _importResolver.resolveImport(widget),
     );
   }
 }
