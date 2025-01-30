@@ -2,7 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:widget_book_widget_generator/src/models/data_type.dart';
 
-class Parameter {
+class WidgetParameter {
   final bool isRequired;
   final bool isNullable;
   final bool isNamed;
@@ -10,7 +10,7 @@ class Parameter {
   final String name;
   final String? defaultValue;
 
-  Parameter({
+  WidgetParameter({
     required this.name,
     required this.isRequired,
     required this.isNullable,
@@ -19,13 +19,16 @@ class Parameter {
     required this.type,
   });
 
-  Parameter.fromParameterElement(ParameterElement element)
+  WidgetParameter.fromParameterElement(ParameterElement element)
       : name = element.name,
         isRequired = element.isRequired,
         isNullable = element.type.nullabilitySuffix == NullabilitySuffix.question,
         defaultValue = element.defaultValueCode,
         isNamed = element.isNamed,
-        type = DataType.fromDartType(element.type.getDisplayString(withNullability: true));
+        type = DataType.fromDartType(
+          type: element.type.getDisplayString(withNullability: true),
+          hasParameters: element.parameters.isNotEmpty,
+        );
 
   Map<String, dynamic> toMap() => {
         'name': name,
@@ -36,7 +39,7 @@ class Parameter {
         'type': type.toMap(),
       };
 
-  factory Parameter.fromMap(Map<String, dynamic> map) => Parameter(
+  factory WidgetParameter.fromMap(Map<String, dynamic> map) => WidgetParameter(
         name: map['name'],
         isRequired: map['isRequired'],
         isNullable: map['isNullable'],

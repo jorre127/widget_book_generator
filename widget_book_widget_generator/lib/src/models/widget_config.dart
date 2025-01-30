@@ -3,7 +3,7 @@ import 'package:widget_book_widget_generator/src/models/parameter.dart';
 class WidgetConfig {
   final String name;
   final String? import;
-  final List<Parameter> parameters;
+  final List<WidgetParameter> parameters;
 
   const WidgetConfig({
     required this.import,
@@ -18,7 +18,7 @@ class WidgetConfig {
       };
 
   factory WidgetConfig.fromMap(Map<String, dynamic> map) => WidgetConfig(
-        parameters: (map['parameters'] as List).map((parameter) => Parameter.fromMap(parameter)).toList(),
+        parameters: (map['parameters'] as List).map((parameter) => WidgetParameter.fromMap(parameter)).toList(),
         name: map['name'],
         import: map['import'],
       );

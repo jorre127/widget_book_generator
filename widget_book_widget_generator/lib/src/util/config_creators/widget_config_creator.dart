@@ -20,7 +20,7 @@ class WidgetConfigCreator {
     DartObject annotation,
   ) {
     final constructor = widget.constructors.first;
-    final parameters = constructor.parameters.map(Parameter.fromParameterElement).toList();
+    final parameters = constructor.parameters.map(WidgetParameter.fromParameterElement).toList();
     final name = widget.name;
 
     return WidgetConfig(

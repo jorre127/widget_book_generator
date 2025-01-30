@@ -7,6 +7,7 @@ class UseCasesImportBuilder {
   static List<Directive> createImports(List<WidgetConfig> configs) {
     final imports = [
       'package:flutter/material.dart',
+      'package:widgetbook/widgetbook.dart',
       'package:widgetbook_annotation/widgetbook_annotation.dart',
       ...configs.map((config) => config.import).toList(),
     ].whereType<String>();
