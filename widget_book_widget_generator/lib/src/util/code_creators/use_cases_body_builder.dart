@@ -13,7 +13,7 @@ class UseCasesBodyBuilder {
           (methodBuilder) => methodBuilder
             ..lambda = true
             ..name = CaseUtil('${config.name}UseCase').camelCase
-            ..returns = const Reference(WidgetBuilder.centerName)
+            ..returns = Reference('Widget')
             ..requiredParameters.add(Parameter(
               (parameterBuilder) => parameterBuilder
                 ..named = false
@@ -26,7 +26,16 @@ class UseCasesBodyBuilder {
                 'type': Reference(config.name),
               }),
             )
-            ..body = Code(WidgetBuilder.buildCenter().toDart()),
+            ..body = Code(
+              WidgetBuilder.buildWidget(
+                name: 'Scaffold',
+                childParameterName: 'body',
+                child: WidgetBuilder.buildWidget(
+                  name: 'Center',
+                  child: WidgetBuilder.buildWidgetFromConf(config),
+                ),
+              ).toDart(),
+            ),
         ),
       )
       .toList();

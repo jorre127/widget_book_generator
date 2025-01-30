@@ -24,10 +24,10 @@ final directories = <_i1.WidgetbookNode>[
         ),
       ),
       _i1.WidgetbookLeafComponent(
-        name: 'Test',
+        name: 'TestWidget',
         useCase: _i1.WidgetbookUseCase(
-          name: 'Test',
-          builder: _i2.testUseCase,
+          name: 'TestWidget',
+          builder: _i2.testWidgetUseCase,
         ),
       ),
     ],

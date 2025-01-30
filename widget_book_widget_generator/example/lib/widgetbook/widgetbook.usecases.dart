@@ -13,11 +13,23 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart';
   name: 'Button',
   type: Button,
 )
-Center buttonUseCase(BuildContext context) =>
-    const Center(child: SizedBox.shrink());
+Widget buttonUseCase(BuildContext context) => const Scaffold(
+        body: Center(
+            child: Button(
+      text: '',
+      subText: '',
+      key: null,
+    )));
 @UseCase(
-  name: 'Test',
-  type: Test,
+  name: 'TestWidget',
+  type: TestWidget,
 )
-Center testUseCase(BuildContext context) =>
-    const Center(child: SizedBox.shrink());
+Widget testWidgetUseCase(BuildContext context) => const Scaffold(
+        body: Center(
+            child: TestWidget(
+      test1: '',
+      test2: 'name',
+      test3: true,
+      test4: 5,
+      key: null,
+    )));
