@@ -9,6 +9,8 @@ class WidgetParameter {
   final DataType type;
   final String name;
   final String? defaultValue;
+  // Does not need to be parsed
+  final Element? element;
 
   WidgetParameter({
     required this.name,
@@ -17,6 +19,7 @@ class WidgetParameter {
     required this.defaultValue,
     required this.isNamed,
     required this.type,
+    this.element,
   });
 
   WidgetParameter.fromParameterElement(ParameterElement element)
@@ -25,7 +28,8 @@ class WidgetParameter {
         isNullable = element.type.nullabilitySuffix == NullabilitySuffix.question,
         defaultValue = element.defaultValueCode,
         isNamed = element.isNamed,
-        type = DataType.fromDartType(type: element.type);
+        type = DataType.fromDartType(type: element.type),
+        element = element.type.element;
 
   Map<String, dynamic> toMap() => {
         'name': name,

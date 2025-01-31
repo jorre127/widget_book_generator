@@ -1,7 +1,8 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:widget_book_widget_generator/src/models/data_type.dart';
-import 'package:widget_book_widget_generator/src/models/parameter.dart';
 import 'package:widget_book_widget_generator/src/models/widget_config.dart';
+import 'package:widget_book_widget_generator/src/models/widget_field.dart';
+import 'package:widget_book_widget_generator/src/models/widget_parameter.dart';
 
 class WidgetBuilder {
   static Expression buildWidget({required String name, required Expression child, String? childParameterName}) =>
@@ -11,12 +12,27 @@ class WidgetBuilder {
     return Reference(child.name).newInstance(
       [],
       Map.fromEntries(
-          child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key).map((parameter) => MapEntry(parameter.name, _buildKnob(parameter)))),
+        child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key).map(
+          (parameter) {
+            if (parameter.type.type == DataTypeEnum.custom) {
+              return MapEntry(
+                parameter.name,
+                buildWidgetFromConf(child.widgetConfigs[parameter.name]!),
+              );
+            } else {
+              return MapEntry(
+                parameter.name,
+                _buildKnob(parameter: parameter, field: child.fields[parameter.name]!),
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 
-  static Reference _buildKnob(WidgetParameter parameter) {
-    final defaultValue = parameter.defaultValue ?? parameter.type.defaultValue;
+  static Reference _buildKnob({required WidgetParameter parameter, required WidgetField field}) {
+    final defaultValue = field.overridenDefaultValue ?? parameter.defaultValue ?? parameter.type.defaultValue;
     final knob = switch (parameter.type.type) {
       DataTypeEnum.string => "context.knobs.string(label: '${parameter.name}', initialValue:${defaultValue} )",
       DataTypeEnum.int => "context.knobs.int.input(label: '${parameter.name}', initialValue:${defaultValue} )",

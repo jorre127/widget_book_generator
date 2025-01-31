@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:widget_book_widget_generator_annotations/widget_book_widget_generator_annotations.dart';
 
-@WidgetBookWidget()
+@widgetBookWidget
 class TestSwitch extends StatelessWidget {
   final bool value;
   final ValueChanged<bool> onChanged;

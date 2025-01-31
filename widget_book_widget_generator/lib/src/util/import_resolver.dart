@@ -6,15 +6,9 @@ class ImportResolver {
   ImportResolver(this.libs);
 
   String? resolveImport(Element? element) {
-    // return early if source is null or element is a core type
-    if (element?.source == null || _isCoreDartType(element)) {
-      return null;
-    }
-
+    if (element?.source == null || _isCoreDartType(element)) return null;
     for (var lib in libs) {
-      if (!_isCoreDartType(lib) && lib.exportNamespace.definedNames.values.contains(element)) {
-        return lib.identifier;
-      }
+      if (!_isCoreDartType(lib) && lib.exportNamespace.definedNames.values.contains(element)) return lib.identifier;
     }
     return null;
   }

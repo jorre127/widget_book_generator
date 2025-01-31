@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_book_widget_generator_annotations/widget_book_widget_generator_annotations.dart';
 
-@WidgetBookWidget()
+@widgetBookWidget
 class TestCheckBox extends StatelessWidget {
   final bool value;
   final ValueChanged<bool> onChanged;

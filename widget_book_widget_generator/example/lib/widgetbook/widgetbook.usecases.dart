@@ -18,10 +18,7 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart';
   name: 'TestProgressIndicator',
   type: TestProgressIndicator,
 )
-Widget testProgressIndicatorUseCase(BuildContext context) => Scaffold(
-    body: Center(
-        child: TestProgressIndicator(
-            dark: context.knobs.boolean(label: 'dark', initialValue: true))));
+Widget testProgressIndicatorUseCase(BuildContext context) => Scaffold(body: Center(child: TestProgressIndicator(dark: context.knobs.boolean(label: 'dark', initialValue: true))));
 @UseCase(
   name: 'TestButton',
   type: TestButton,
@@ -29,15 +26,11 @@ Widget testProgressIndicatorUseCase(BuildContext context) => Scaffold(
 Widget testButtonUseCase(BuildContext context) => Scaffold(
         body: Center(
             child: TestButton(
-      text: context.knobs.string(label: 'text', initialValue: ''),
+      text: context.knobs.string(label: 'text', initialValue: 'Override'),
       onClick: () {},
-      isExpanded:
-          context.knobs.boolean(label: 'isExpanded', initialValue: true),
-      isEnabled: context.knobs.boolean(label: 'isEnabled', initialValue: true),
-      buttonType: context.knobs.list(
-          label: 'buttonType',
-          initialOption: ButtonType.regular,
-          options: [ButtonType.regular, ButtonType.text]),
+      isExpanded: context.knobs.boolean(label: 'isExpanded', initialValue: true),
+      isEnabled: context.knobs.boolean(label: 'isEnabled', initialValue: false),
+      buttonType: context.knobs.list(label: 'buttonType', initialOption: ButtonType.regular, options: [ButtonType.regular, ButtonType.text]),
     )));
 @UseCase(
   name: 'FlutterTemplateInputField',
@@ -50,7 +43,7 @@ Widget flutterTemplateInputFieldUseCase(BuildContext context) => Scaffold(
       onChanged: (String value) {},
       autoFillHints: const [],
       enabled: context.knobs.boolean(label: 'enabled', initialValue: true),
-      controller: null,
+      controller: TextEditingController(text: context.knobs.string(label: 'text', initialValue: '')),
     )));
 @UseCase(
   name: 'TestBackButton',
@@ -60,9 +53,13 @@ Widget testBackButtonUseCase(BuildContext context) => Scaffold(
         body: Center(
             child: TestBackButton(
       onClick: () {},
+      data: TestBackButtonData(
+        onClick: () {},
+        isLight: context.knobs.boolean(label: 'isLight', initialValue: true),
+        fullScreen: context.knobs.boolean(label: 'fullScreen', initialValue: false),
+      ),
       isLight: context.knobs.boolean(label: 'isLight', initialValue: true),
-      fullScreen:
-          context.knobs.boolean(label: 'fullScreen', initialValue: false),
+      fullScreen: context.knobs.boolean(label: 'fullScreen', initialValue: false),
     )));
 @UseCase(
   name: 'TestCheckBox',
