@@ -34,7 +34,10 @@ Widget testButtonUseCase(BuildContext context) => Scaffold(
       isExpanded:
           context.knobs.boolean(label: 'isExpanded', initialValue: true),
       isEnabled: context.knobs.boolean(label: 'isEnabled', initialValue: true),
-      buttonType: ButtonType.regular,
+      buttonType: context.knobs.list(
+          label: 'buttonType',
+          initialOption: ButtonType.regular,
+          options: [ButtonType.regular, ButtonType.text]),
     )));
 @UseCase(
   name: 'FlutterTemplateInputField',

@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 
 class DataType {
@@ -6,23 +7,33 @@ class DataType {
   final DataTypeEnum? type;
   final bool isEnum;
   final bool isFunction;
+  final List<String>? enumValues;
 
   DataType({
     required this.name,
     required this.isEnum,
     required this.defaultValue,
     required this.type,
+    this.enumValues,
     this.isFunction = false,
   });
 
   factory DataType.fromDartType({required DartType type}) {
     final typeString = type.getDisplayString(withNullability: true);
     bool isFunction = false;
+    List<String> enumValues = [];
+
     if (type is FunctionType) {
       isFunction = true;
     }
 
-    final isList = typeString.contains('List<');
+    final isList = type.isDartCoreList;
+    final element = type.element;
+
+    if (element is EnumElement) {
+      enumValues = element.fields.where((field) => field.name != 'values').map((field) => field.name).toList();
+    }
+
     final dataType = switch (typeString) {
       'string' || 'String' || 'string?' || 'String?' => DataType(name: 'String', isEnum: false, defaultValue: "''", type: DataTypeEnum.string),
       'int' || 'int?' => DataType(name: 'int', isEnum: false, defaultValue: '0', type: DataTypeEnum.int),
@@ -31,6 +42,8 @@ class DataType {
       'Color' => DataType(name: 'Color', isEnum: false, defaultValue: 'Colors.blue', type: DataTypeEnum.color),
       'DateTime' => DataType(name: 'DateTime', isEnum: false, defaultValue: 'DateTime.now()', type: DataTypeEnum.date),
       'Key' || 'Key?' => DataType(name: 'Key', isEnum: false, defaultValue: 'null', type: DataTypeEnum.key),
+      _ when enumValues.isNotEmpty =>
+        DataType(name: typeString, isEnum: true, defaultValue: '${typeString}.${enumValues.first}', type: DataTypeEnum.enumType, enumValues: enumValues),
       _ when isFunction => DataType(name: typeString, isEnum: false, defaultValue: _getDefaultValueFunction(type as FunctionType), type: DataTypeEnum.function),
       _ when isList => DataType(name: typeString, isEnum: false, defaultValue: 'const []', type: DataTypeEnum.list),
       _ => DataType(name: typeString, isEnum: false, defaultValue: 'null', type: DataTypeEnum.custom),
@@ -53,6 +66,7 @@ class DataType {
         'isEnum': isEnum,
         'defaultValue': defaultValue,
         'type': type?.index,
+        'enumValues': enumValues,
       };
 
   factory DataType.fromMap(Map<String, dynamic> map) => DataType(
@@ -60,6 +74,7 @@ class DataType {
         isEnum: map['isEnum'],
         defaultValue: map['defaultValue'],
         type: DataTypeEnum.values[map['type']],
+        enumValues: (map['enumValues'] as List<dynamic>?)?.map((e) => e as String).toList(),
       );
 }
 
@@ -72,6 +87,7 @@ enum DataTypeEnum {
   bool,
   date,
   color,
+  enumType,
   function,
   custom,
 }

@@ -25,8 +25,14 @@ class WidgetBuilder {
       DataTypeEnum.color => "context.knobs.color(label: '${parameter.name}', initialValue:${defaultValue} )",
       DataTypeEnum.date => "context.knobs.dateTime(label: '${parameter.name}', initialValue:${defaultValue} )",
       DataTypeEnum.custom || DataTypeEnum.function || DataTypeEnum.key || DataTypeEnum.list => defaultValue,
+      DataTypeEnum.enumType => _buildEnumKnob(type: parameter.type, defaultValue: defaultValue, name: parameter.name),
       null => defaultValue,
     };
     return Reference(knob);
+  }
+
+  static String _buildEnumKnob({required DataType type, required String defaultValue, required String name}) {
+    final enumValuesString = type.enumValues?.map((e) => "${type.name}.$e").join(', ');
+    return "context.knobs.list(label: '${name}', initialOption: $defaultValue, options: [$enumValuesString])";
   }
 }
