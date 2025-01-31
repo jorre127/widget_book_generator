@@ -111,12 +111,16 @@ Widget testBackButtonUseCase(BuildContext context) {
   bool testBackButtonDataFullScreen = context.knobs
       .boolean(label: 'fullScreen (TestBackButtonData)', initialValue: false);
 
+  bool testBackButtonSubDataEnabled = context.knobs
+      .boolean(label: 'enabled (TestBackButtonSubData)', initialValue: true);
+
   return Scaffold(
       body: Center(
           child: TestBackButton(
     onClick: testBackButtonOnClick,
     data: TestBackButtonData(
       onClick: testBackButtonDataOnClick,
+      subData: TestBackButtonSubData(enabled: testBackButtonSubDataEnabled),
       isLight: testBackButtonDataIsLight,
       fullScreen: testBackButtonDataFullScreen,
     ),
