@@ -14,6 +14,8 @@ class WidgetBuilder {
         child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key).map(
           (parameter) {
             final field = child.fields[parameter.name];
+            if (field?.ignore == true && parameter.defaultValue == null && field?.overridenDefaultValue == null) return null;
+            
             if (parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] != null && field?.ignore != true) {
               return MapEntry(
                 parameter.name,
@@ -31,7 +33,7 @@ class WidgetBuilder {
               );
             }
           },
-        ),
+        ).whereType<MapEntry<String, Expression>>(),
       ),
     );
   }

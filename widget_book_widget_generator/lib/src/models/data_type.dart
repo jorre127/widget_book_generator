@@ -89,7 +89,7 @@ class DataType {
       'Widget' || 'Widget?' => DataType(
           name: 'Widget',
           isEnum: false,
-          defaultValue: 'SizeBox.shrink()',
+          defaultValue: 'SizedBox.shrink()',
           type: DataTypeEnum.widget,
           typeString: type.getDisplayString(withNullability: true),
         ),
