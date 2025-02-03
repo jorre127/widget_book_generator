@@ -1,10 +1,10 @@
 class WidgetBookWidgetField {
-  final String defaultValue;
+  final String? defaultValue;
   /// If ignore is set to true, then no default value (using knobs) will be generated for this field
   final bool ignore;
 
   const WidgetBookWidgetField({
-    required this.defaultValue,
+    this.defaultValue,
     this.ignore = false,
   });
 }

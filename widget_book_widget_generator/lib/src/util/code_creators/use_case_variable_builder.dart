@@ -35,8 +35,13 @@ class UseCaseVariableBuilder {
   }
 
   static List<WidgetConfig> _getAllWidgetConfigs(WidgetConfig config) {
-    final allConfigs =
-        config.widgetConfigs.values.expand((element) => [element, ...element.widgetConfigs.values.map((config) => _getAllWidgetConfigs(config)).expand((config) => config)]);
+    final allConfigs = config.widgetConfigs.values.expand((element) => [
+          element,
+          ...element.widgetConfigs.entries
+              .where((entry) => element.fields[entry.key]?.ignore != true)
+              .map((config) => _getAllWidgetConfigs(config.value))
+              .expand((config) => config)
+        ]);
 
     return [config, ...allConfigs];
   }
