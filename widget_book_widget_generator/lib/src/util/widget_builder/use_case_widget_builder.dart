@@ -13,17 +13,21 @@ class WidgetBuilder {
       Map.fromEntries(
         child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key).map(
           (parameter) {
-            if (parameter.type.type == DataTypeEnum.custom) {
+            if (parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] != null) {
               return MapEntry(
                 parameter.name,
                 buildWidgetFromConf(child.widgetConfigs[parameter.name]!),
               );
-            } else {
+            } else if (parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] != null) {
+              return MapEntry(
+                parameter.name,
+                Reference('null'),
+              );
+            } else
               return MapEntry(
                 parameter.name,
                 Reference(CaseUtil('${child.name} ${parameter.name}').camelCase),
               );
-            }
           },
         ),
       ),
