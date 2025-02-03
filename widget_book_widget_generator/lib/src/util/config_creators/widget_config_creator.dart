@@ -23,7 +23,7 @@ class WidgetConfigCreator {
     final parameters = constructor.parameters.map(WidgetParameter.fromParameterElement).toList();
     final fields = Map.fromEntries(widget.fields.map((field) => MapEntry(field.name, WidgetField.fromFieldElement(field))));
     final widgetConfigs = Map.fromEntries(parameters
-        .where((parameter) => parameter.type.type == DataTypeEnum.custom && parameter.element is ClassElement)
+        .where((parameter) => parameter.type.type == DataTypeEnum.custom && parameter.element is ClassElement && fields[parameter.name]?.ignore != true)
         .map((parameter) => MapEntry(parameter.name, _createWidgetConfig(parameter.element as ClassElement))));
 
     final name = widget.name;

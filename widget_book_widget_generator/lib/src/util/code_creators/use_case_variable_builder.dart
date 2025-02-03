@@ -35,13 +35,8 @@ class UseCaseVariableBuilder {
   }
 
   static List<WidgetConfig> _getAllWidgetConfigs(WidgetConfig config) {
-    final allConfigs = config.widgetConfigs.values.expand((element) => [
-          element,
-          ...element.widgetConfigs.entries
-              .where((entry) => element.fields[entry.key]?.ignore != true)
-              .map((config) => _getAllWidgetConfigs(config.value))
-              .expand((config) => config)
-        ]);
+    final allConfigs =
+        config.widgetConfigs.values.expand((element) => [element, ...element.widgetConfigs.entries.map((config) => _getAllWidgetConfigs(config.value)).expand((config) => config)]);
 
     return [config, ...allConfigs];
   }
@@ -57,7 +52,7 @@ class UseCaseVariableBuilder {
       DataTypeEnum.bool => "context.knobs.boolean(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.color => "context.knobs.color(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.date => "context.knobs.dateTime(label: '$knobName', initialValue:${defaultValue} )",
-      DataTypeEnum.custom || DataTypeEnum.function || DataTypeEnum.key || DataTypeEnum.list => defaultValue,
+      DataTypeEnum.custom || DataTypeEnum.function || DataTypeEnum.key || DataTypeEnum.list || DataTypeEnum.widget => defaultValue,
       DataTypeEnum.enumType => _buildEnumKnob(type: parameter.type, defaultValue: defaultValue, name: knobName),
       null => defaultValue,
     };
