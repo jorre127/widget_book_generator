@@ -8,7 +8,7 @@ class UseCasesBuilder {
 
   static Library createUseCasesContent(List<WidgetConfig> configs) => Library(
         (libraryBuilder) => libraryBuilder
-          ..comments.add('ignore_for_file: prefer_function_declarations_over_variables')
+          ..comments.add('ignore_for_file: prefer_function_declarations_over_variables, prefer_final_locals, omit_local_variable_types, prefer_int_literals, avoid_types_on_closure_parameters, avoid_positional_boolean_parameters')
           ..directives.addAll(UseCasesImportBuilder.createImports(configs))
           ..body.addAll(UseCasesBodyBuilder.createUseCasesBody(configs)),
       );
