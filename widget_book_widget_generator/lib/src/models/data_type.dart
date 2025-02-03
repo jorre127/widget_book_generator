@@ -20,7 +20,7 @@ class DataType {
     this.isFunction = false,
   });
 
-  factory DataType.fromDartType({required DartType type}) {
+  factory DataType.fromDartType({required DartType type, required String name}) {
     final typeString = type.getDisplayString(withNullability: true);
     bool isFunction = false;
     List<String> enumValues = [];
@@ -66,7 +66,7 @@ class DataType {
     };
 
     if (dataType.type == DataTypeEnum.custom) {
-      print('Custom type: $type not recognize, default value is null');
+      print('Custom type $type of variable $name not recognized, default value is null');
     }
 
     return dataType;
