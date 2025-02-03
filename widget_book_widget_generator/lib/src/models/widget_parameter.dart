@@ -9,6 +9,7 @@ class WidgetParameter {
   final DataType type;
   final String name;
   final String? defaultValue;
+  final int id;
   // Does not need to be parsed
   final Element? element;
 
@@ -19,11 +20,13 @@ class WidgetParameter {
     required this.defaultValue,
     required this.isNamed,
     required this.type,
+    required this.id,
     this.element,
   });
 
   WidgetParameter.fromParameterElement(ParameterElement element)
       : name = element.name,
+        id = element.id,
         isRequired = element.isRequired,
         isNullable = element.type.nullabilitySuffix == NullabilitySuffix.question,
         defaultValue = element.defaultValueCode,
@@ -38,6 +41,7 @@ class WidgetParameter {
         'defaultValue': defaultValue,
         'isNamed': isNamed,
         'type': type.toMap(),
+        'id': id,
       };
 
   factory WidgetParameter.fromMap(Map<String, dynamic> map) => WidgetParameter(
@@ -47,5 +51,6 @@ class WidgetParameter {
         defaultValue: map['defaultValue'],
         isNamed: map['isNamed'],
         type: DataType.fromMap(map['type']),
+        id: 0,
       );
 }

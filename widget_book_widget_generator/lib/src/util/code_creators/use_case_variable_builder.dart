@@ -17,11 +17,12 @@ class UseCaseVariableBuilder {
           return config.parameters.map(
             (parameter) {
               final field = config.fields[parameter.name];
-              final isParentWidget = widgetConfigs.indexOf(config) == 0;
-              if (field == null || parameter.type.type == DataTypeEnum.custom) return null;
+              final index = widgetConfigs.indexOf(config);
+              final isParentWidget = index == 0;
+              if (field == null || parameter.type.type == DataTypeEnum.custom || field.ignore) return null;
               return Field(
                 (fieldBuilder) => fieldBuilder
-                  ..name = CaseUtil('${config.name} ${parameter.name}').camelCase
+                  ..name = CaseUtil('${config.name} ${parameter.name} ${parameter.id}').camelCase
                   ..modifier = FieldModifier.var$
                   ..type = Reference(parameter.type.typeString)
                   ..assignment = Code(_buildKnob(field: config.fields[parameter.name]!, parameter: parameter, widgetName: isParentWidget ? null : config.name).toDart()),

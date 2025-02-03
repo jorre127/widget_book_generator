@@ -45,7 +45,7 @@ class DataType {
       'int' || 'int?' => DataType(name: 'int', isEnum: false, defaultValue: '0', type: DataTypeEnum.int, typeString: type.getDisplayString(withNullability: true)),
       'double' || 'double?' => DataType(name: 'double', isEnum: false, defaultValue: '0.0', type: DataTypeEnum.double, typeString: type.getDisplayString(withNullability: true)),
       'bool' || 'bool?' => DataType(name: 'bool', isEnum: false, defaultValue: 'true', type: DataTypeEnum.bool, typeString: type.getDisplayString(withNullability: true)),
-      'Color' => DataType(name: 'Color', isEnum: false, defaultValue: 'Colors.blue', type: DataTypeEnum.color, typeString: type.getDisplayString(withNullability: true)),
+      'Color' || 'Color?' => DataType(name: 'Color', isEnum: false, defaultValue: 'Colors.blue', type: DataTypeEnum.color, typeString: type.getDisplayString(withNullability: true)),
       'DateTime' => DataType(name: 'DateTime', isEnum: false, defaultValue: 'DateTime.now()', type: DataTypeEnum.date, typeString: type.getDisplayString(withNullability: true)),
       'Key' || 'Key?' => DataType(name: 'Key', isEnum: false, defaultValue: 'null', type: DataTypeEnum.key, typeString: type.getDisplayString(withNullability: true)),
       _ when enumValues.isNotEmpty => DataType(
