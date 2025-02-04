@@ -16,12 +16,13 @@ class WidgetBuilder {
             final field = child.fields[parameter.name];
             if (field?.ignore == true && parameter.defaultValue == null && field?.overridenDefaultValue == null) return null;
 
-            if (parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] != null && field?.ignore != true) {
+            if (parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] != null && field?.ignore != true && field?.overridenDefaultValue == null) {
               return MapEntry(
                 parameter.name,
                 buildWidgetFromConf(child.widgetConfigs[parameter.name]!),
               );
-            } else if ((parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] == null) || field?.ignore == true) {
+            } else if (((parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] == null) || field?.ignore == true) &&
+                field?.overridenDefaultValue != null) {
               return MapEntry(
                 parameter.name,
                 Reference(parameter.defaultValue ?? field?.overridenDefaultValue ?? parameter.type.defaultValue),
