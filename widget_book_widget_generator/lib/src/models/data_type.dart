@@ -81,7 +81,7 @@ class DataType {
           type: DataTypeEnum.color,
           typeString: type.getDisplayString(withNullability: true),
         ),
-      'DateTime' => DataType(
+      'DateTime' || 'DateTime?' => DataType(
           name: 'DateTime',
           isEnum: false,
           isNullable: isNullable,
