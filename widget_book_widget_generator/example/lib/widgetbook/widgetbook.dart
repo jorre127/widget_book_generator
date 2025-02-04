@@ -16,6 +16,9 @@ class WidgetbookApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Widgetbook.material(
       directories: directories,
+      appBuilder: (context, child) => Scaffold(
+        body: child,
+      ),
     );
   }
 }

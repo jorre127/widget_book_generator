@@ -30,12 +30,8 @@ class UseCasesBodyBuilder {
               (builder) {
                 builder.statements.addAll(UseCaseVariableBuilder.createUseCaseVariables(config).map((variable) => Code(variable.toDart())));
                 builder.addExpression(Reference(WidgetBuilder.buildWidget(
-                  name: 'Scaffold',
-                  childParameterName: 'body',
-                  child: WidgetBuilder.buildWidget(
-                    name: 'Center',
-                    child: WidgetBuilder.buildWidgetFromConf(config),
-                  ),
+                  name: 'Center',
+                  child: WidgetBuilder.buildWidgetFromConf(config),
                 ).toDart())
                     .returned);
               },

@@ -41,16 +41,17 @@ class UseCaseVariableBuilder {
   }
 
   static Reference _buildKnob({required WidgetParameter parameter, required WidgetField field, String? widgetName}) {
-    final defaultValue = field.overridenDefaultValue ?? parameter.defaultValue ?? parameter.type.defaultValue;
     final knobName = widgetName == null ? parameter.name : '${parameter.name} (${widgetName})';
+    final isNullable = parameter.type.isNullable;
+    final defaultValue = field.overridenDefaultValue ?? parameter.defaultValue ?? (isNullable ? null : parameter.type.defaultValue);
 
     final knob = switch (parameter.type.type) {
-      DataTypeEnum.string => "context.knobs.string(label: '$knobName', initialValue:${defaultValue} )",
-      DataTypeEnum.int => "context.knobs.int.input(label: '$knobName', initialValue:${defaultValue} )",
-      DataTypeEnum.double => "context.knobs.double.input(label: '$knobName', initialValue:${defaultValue} )",
-      DataTypeEnum.bool => "context.knobs.boolean(label: '$knobName', initialValue:${defaultValue} )",
-      DataTypeEnum.color => "context.knobs.color(label: '$knobName', initialValue:${defaultValue} )",
-      DataTypeEnum.date => "context.knobs.dateTime(label: '$knobName', initialValue:${defaultValue} )",
+      DataTypeEnum.string => "context.knobs.string${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
+      DataTypeEnum.int => "context.knobs.int${isNullable ? 'OrNull' : ''}.input(label: '$knobName', initialValue:${defaultValue} )",
+      DataTypeEnum.double => "context.knobs${isNullable ? 'OrNull' : ''}.double.input(label: '$knobName', initialValue:${defaultValue} )",
+      DataTypeEnum.bool => "context.knobs.boolean${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
+      DataTypeEnum.color => "context.knobs.color${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
+      DataTypeEnum.date => "context.knobs.dateTime${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.custom || DataTypeEnum.function || DataTypeEnum.key || DataTypeEnum.list || DataTypeEnum.widget => defaultValue,
       DataTypeEnum.enumType => _buildEnumKnob(type: parameter.type, defaultValue: defaultValue, name: knobName),
       null => defaultValue,
@@ -58,7 +59,7 @@ class UseCaseVariableBuilder {
     return Reference(knob);
   }
 
-  static String _buildEnumKnob({required DataType type, required String defaultValue, required String name}) {
+  static String _buildEnumKnob({required DataType type, required String? defaultValue, required String name}) {
     final enumValuesString = type.enumValues?.map((e) => "${type.name.replaceAll('?', '')}.$e").join(', ');
     return "context.knobs.list(label: '${name}', initialOption: $defaultValue, options: [$enumValuesString])";
   }
