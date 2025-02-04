@@ -147,7 +147,7 @@ class DataType {
 
   static String _getDefaultValueFunction(FunctionType type) {
     final parameters = type.parameters.map((e) => '${e.type.getDisplayString(withNullability: true)} ${e.name}').join(', ');
-    return '($parameters) {}';
+    return '($parameters)${type.isDartAsyncFuture ? ' async' : ''} {}';
   }
 
   Map<String, dynamic> toMap() => {
