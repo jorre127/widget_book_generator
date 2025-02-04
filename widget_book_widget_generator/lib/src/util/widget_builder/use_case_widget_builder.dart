@@ -25,7 +25,7 @@ class WidgetBuilder {
             final Expression value;
             if (isCustom && canGenerateCustom && !hasOverride && !ignoreField) {
               value = buildWidgetFromConf(child.widgetConfigs[parameter.name]!);
-            } else if ((((isCustom && !canGenerateCustom) || hasOverride) || ignoreField)) {
+            } else if ((((isCustom && !canGenerateCustom) && !hasOverride) || ignoreField)) {
               value = Reference(parameter.defaultValue ?? field?.overridenDefaultValue ?? parameter.type.defaultValue);
             } else {
               value = Reference(CaseUtil('${child.name} ${parameter.name} ${parameter.id}').camelCase);
