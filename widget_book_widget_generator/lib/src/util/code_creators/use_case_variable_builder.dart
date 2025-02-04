@@ -19,7 +19,7 @@ class UseCaseVariableBuilder {
               final field = config.fields[parameter.name];
               final index = widgetConfigs.indexOf(config);
               final isParentWidget = index == 0;
-              if (field == null || parameter.type.type == DataTypeEnum.custom || field.ignore) return null;
+              if (field == null || (parameter.type.type == DataTypeEnum.custom && field.overridenDefaultValue == null) || field.ignore) return null;
               return Field(
                 (fieldBuilder) => fieldBuilder
                   ..name = CaseUtil('${config.name} ${parameter.name} ${parameter.id}').camelCase
