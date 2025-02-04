@@ -8,31 +8,33 @@ class WidgetBuilder {
       Reference(name).newInstance([], {'${childParameterName ?? 'child'}': child});
 
   static Expression buildWidgetFromConf(WidgetConfig child) {
+    final parameters = child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key);
     return Reference(child.name).newInstance(
       [],
       Map.fromEntries(
-        child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key).map(
+        parameters.map(
           (parameter) {
             final field = child.fields[parameter.name];
             if (field?.ignore == true && parameter.defaultValue == null && field?.overridenDefaultValue == null) return null;
 
-            if (parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] != null && field?.ignore != true && field?.overridenDefaultValue == null) {
-              return MapEntry(
-                parameter.name,
-                buildWidgetFromConf(child.widgetConfigs[parameter.name]!),
-              );
-            } else if (((parameter.type.type == DataTypeEnum.custom && child.widgetConfigs[parameter.name] == null) || field?.ignore == true) &&
-                field?.overridenDefaultValue != null) {
-              return MapEntry(
-                parameter.name,
-                Reference(parameter.defaultValue ?? field?.overridenDefaultValue ?? parameter.type.defaultValue),
-              );
+            final isCustom = parameter.type.type == DataTypeEnum.custom;
+            final canGenerateCustom = child.widgetConfigs[parameter.name] != null;
+            final ignoreField = field?.ignore == true;
+            final hasOverride = field?.overridenDefaultValue == null;
+
+            final Expression value;
+            if (isCustom && canGenerateCustom && !hasOverride && !ignoreField) {
+              value = buildWidgetFromConf(child.widgetConfigs[parameter.name]!);
+            } else if ((((isCustom && !canGenerateCustom) || hasOverride) || ignoreField)) {
+              value = Reference(parameter.defaultValue ?? field?.overridenDefaultValue ?? parameter.type.defaultValue);
             } else {
-              return MapEntry(
-                parameter.name,
-                Reference(CaseUtil('${child.name} ${parameter.name} ${parameter.id}').camelCase),
-              );
+              value = Reference(CaseUtil('${child.name} ${parameter.name} ${parameter.id}').camelCase);
             }
+
+            return MapEntry(
+              parameter.name,
+              value,
+            );
           },
         ).whereType<MapEntry<String, Expression>>(),
       ),

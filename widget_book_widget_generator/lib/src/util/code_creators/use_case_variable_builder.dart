@@ -16,10 +16,9 @@ class UseCaseVariableBuilder {
         .map((config) {
           return config.parameters.map(
             (parameter) {
-              final field = config.fields[parameter.name];
               final index = widgetConfigs.indexOf(config);
               final isParentWidget = index == 0;
-              if (field == null || (parameter.type.type == DataTypeEnum.custom && field.overridenDefaultValue == null) || field.ignore) return null;
+              if (config.shouldNotGenerateVariableForParameter(parameter)) return null;
               return Field(
                 (fieldBuilder) => fieldBuilder
                   ..name = CaseUtil('${config.name} ${parameter.name} ${parameter.id}').camelCase

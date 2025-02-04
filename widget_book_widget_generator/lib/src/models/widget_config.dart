@@ -1,3 +1,4 @@
+import 'package:widget_book_widget_generator/src/models/data_type.dart';
 import 'package:widget_book_widget_generator/src/models/widget_field.dart';
 import 'package:widget_book_widget_generator/src/models/widget_parameter.dart';
 
@@ -31,4 +32,9 @@ class WidgetConfig {
         fields: (map['fields'] as Map).map((key, value) => MapEntry(key, WidgetField.fromMap(value))),
         widgetConfigs: (map['widgetConfigs'] as Map).map((key, value) => MapEntry(key, WidgetConfig.fromMap(value))),
       );
+
+  bool shouldNotGenerateVariableForParameter(WidgetParameter parameter) {
+    final field = fields[parameter.name];
+    return field == null || field.ignore || (parameter.type.type == DataTypeEnum.custom && field.overridenDefaultValue == null);
+  }
 }
