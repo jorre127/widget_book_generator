@@ -96,7 +96,7 @@ class DataType {
       _ when enumValues.isNotEmpty => DataType(
           name: typeString,
           isEnum: true,
-          defaultValue: '${typeString}.${enumValues.first}',
+          defaultValue: '${typeString.replaceAll('?', '')}.${enumValues.first}',
           type: DataTypeEnum.enumType,
           enumValues: enumValues,
           typeString: type.getDisplayString(withNullability: true)),
