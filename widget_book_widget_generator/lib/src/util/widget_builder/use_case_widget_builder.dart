@@ -20,7 +20,7 @@ class WidgetBuilder {
             final isCustom = parameter.type.type == DataTypeEnum.custom;
             final canGenerateCustom = child.widgetConfigs[parameter.name] != null;
             final ignoreField = field?.ignore == true;
-            final hasOverride = field?.overridenDefaultValue == null;
+            final hasOverride = field?.overridenDefaultValue != null;
 
             final Expression value;
             if (isCustom && canGenerateCustom && !hasOverride && !ignoreField) {
