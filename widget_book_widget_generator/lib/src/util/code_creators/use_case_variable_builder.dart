@@ -48,7 +48,7 @@ class UseCaseVariableBuilder {
     final knob = switch (parameter.type.type) {
       DataTypeEnum.string => "context.knobs.string${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.int => "context.knobs.int${isNullable ? 'OrNull' : ''}.input(label: '$knobName', initialValue:${defaultValue} )",
-      DataTypeEnum.double => "context.knobs${isNullable ? 'OrNull' : ''}.double.input(label: '$knobName', initialValue:${defaultValue} )",
+      DataTypeEnum.double => "context.knobs.double${isNullable ? 'OrNull' : ''}.input(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.bool => "context.knobs.boolean${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.color => "context.knobs.color${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.date => "context.knobs.dateTime${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
