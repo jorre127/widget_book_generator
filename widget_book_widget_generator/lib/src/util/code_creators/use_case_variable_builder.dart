@@ -60,7 +60,7 @@ class UseCaseVariableBuilder {
   }
 
   static String _buildEnumKnob({required DataType type, required String defaultValue, required String name}) {
-    final enumValuesString = type.enumValues?.map((e) => "${type.name}.$e").join(', ');
+    final enumValuesString = type.enumValues?.map((e) => "${type.name.replaceAll('?', '')}.$e").join(', ');
     return "context.knobs.list(label: '${name}', initialOption: $defaultValue, options: [$enumValuesString])";
   }
 }
