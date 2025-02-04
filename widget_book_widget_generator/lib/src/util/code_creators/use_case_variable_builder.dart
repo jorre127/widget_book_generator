@@ -43,7 +43,7 @@ class UseCaseVariableBuilder {
   static Reference _buildKnob({required WidgetParameter parameter, required WidgetField field, String? widgetName}) {
     final knobName = widgetName == null ? parameter.name : '${parameter.name} (${widgetName})';
     final isNullable = parameter.type.isNullable;
-    final defaultValue = field.overridenDefaultValue ?? parameter.defaultValue ?? (isNullable ? null : parameter.type.defaultValue);
+    final defaultValue = field.overridenDefaultValue ?? parameter.defaultValue ?? (isNullable ? 'null' : parameter.type.defaultValue);
 
     final knob = switch (parameter.type.type) {
       DataTypeEnum.string => "context.knobs.string${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
