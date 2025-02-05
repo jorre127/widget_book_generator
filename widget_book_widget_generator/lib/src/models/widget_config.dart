@@ -1,6 +1,7 @@
 import 'package:widget_book_widget_generator/src/models/data_type.dart';
 import 'package:widget_book_widget_generator/src/models/widget_field.dart';
 import 'package:widget_book_widget_generator/src/models/widget_parameter.dart';
+import 'package:widget_book_widget_generator/src/util/case_util.dart';
 
 class WidgetConfig {
   final String name;
@@ -41,4 +42,6 @@ class WidgetConfig {
     final field = fields[parameter.name];
     return field == null || field.ignore || (parameter.type.type == DataTypeEnum.custom && field.overridenDefaultValue == null);
   }
+
+  String getVariableName(WidgetParameter parameter) => CaseUtil('${path?.replaceAll('/', ' ')} ${parameter.name}').camelCase;
 }

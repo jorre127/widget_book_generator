@@ -1,7 +1,6 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:widget_book_widget_generator/src/models/data_type.dart';
 import 'package:widget_book_widget_generator/src/models/widget_config.dart';
-import 'package:widget_book_widget_generator/src/util/case_util.dart';
 
 class WidgetBuilder {
   static Expression buildWidget({required String name, required Expression child, String? childParameterName}) =>
@@ -28,7 +27,7 @@ class WidgetBuilder {
             } else if ((((isCustom && !canGenerateCustom) && !hasOverride) || ignoreField)) {
               value = Reference(parameter.defaultValue ?? field?.overridenDefaultValue ?? parameter.type.defaultValue);
             } else {
-              value = Reference(CaseUtil('${child.name} ${parameter.name} ${parameter.id}').camelCase);
+              value = Reference(child.getVariableName(parameter));
             }
 
             return MapEntry(

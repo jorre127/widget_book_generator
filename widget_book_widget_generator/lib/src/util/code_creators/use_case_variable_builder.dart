@@ -3,7 +3,6 @@ import 'package:widget_book_widget_generator/src/models/data_type.dart';
 import 'package:widget_book_widget_generator/src/models/widget_config.dart';
 import 'package:widget_book_widget_generator/src/models/widget_field.dart';
 import 'package:widget_book_widget_generator/src/models/widget_parameter.dart';
-import 'package:widget_book_widget_generator/src/util/case_util.dart';
 import 'package:widget_book_widget_generator/src/util/extensions/spec_extension.dart';
 import 'package:widget_book_widget_generator/src/util/widget_config_extension.dart';
 
@@ -22,7 +21,7 @@ class UseCaseVariableBuilder {
               if (config.shouldNotGenerateVariableForParameter(parameter)) return null;
               return Field(
                 (fieldBuilder) => fieldBuilder
-                  ..name = CaseUtil('${config.path?.replaceAll('/', '')} ${parameter.name}').camelCase
+                  ..name = config.getVariableName(parameter)
                   ..modifier = FieldModifier.var$
                   ..type = Reference(parameter.type.typeString)
                   ..assignment = Code(_buildKnob(field: config.fields[parameter.name]!, parameter: parameter, path: isParentWidget ? null : config.path).toDart()),
