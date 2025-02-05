@@ -43,5 +43,11 @@ class WidgetConfig {
     return field == null || field.ignore || (parameter.type.type == DataTypeEnum.custom && field.overridenDefaultValue == null);
   }
 
-  String getVariableName(WidgetParameter parameter) => CaseUtil('${path?.replaceAll('/', ' ')} ${parameter.name}').camelCase;
+  String getVariableName(WidgetParameter parameter) {
+    final name = [
+      if (path != null) path?.replaceAll('/', ' '),
+      parameter.name,
+    ].join(' ');
+    return CaseUtil(name).camelCase;
+  }
 }

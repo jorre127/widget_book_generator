@@ -22,7 +22,9 @@ class WidgetConfigCreator {
   }) {
     final hasParent = path != null;
     final constructor = widget.constructors.first;
-    final parameters = constructor.parameters.map((parameter) => WidgetParameter.fromParameterElement(element: parameter, importResolver: _importResolver)).toList();
+    final superConstructor = widget.supertype?.element.constructors.first;
+    final constructorParameters = constructor.parameters.followedBy(superConstructor?.parameters ?? []);
+    final parameters = constructorParameters.map((parameter) => WidgetParameter.fromParameterElement(element: parameter, importResolver: _importResolver)).toList();
     final fields = Map.fromEntries(widget.fields.map((field) => MapEntry(field.name, WidgetField.fromFieldElement(field))));
     final widgetConfigs = Map.fromEntries(
       parameters.where((parameter) => parameter.type.type == DataTypeEnum.custom && parameter.element is ClassElement && fields[parameter.name]?.ignore != true).map(
