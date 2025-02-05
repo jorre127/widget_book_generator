@@ -22,10 +22,10 @@ class UseCaseVariableBuilder {
               if (config.shouldNotGenerateVariableForParameter(parameter)) return null;
               return Field(
                 (fieldBuilder) => fieldBuilder
-                  ..name = CaseUtil('${config.name} ${parameter.name} ${parameter.id}').camelCase
+                  ..name = CaseUtil('${config.path?.replaceAll('/', '')} ${parameter.name}').camelCase
                   ..modifier = FieldModifier.var$
                   ..type = Reference(parameter.type.typeString)
-                  ..assignment = Code(_buildKnob(field: config.fields[parameter.name]!, parameter: parameter, widgetName: isParentWidget ? null : config.name).toDart()),
+                  ..assignment = Code(_buildKnob(field: config.fields[parameter.name]!, parameter: parameter, path: isParentWidget ? null : config.path).toDart()),
               );
             },
           ).whereType<Field>();
@@ -34,8 +34,8 @@ class UseCaseVariableBuilder {
         .toList();
   }
 
-  static Reference _buildKnob({required WidgetParameter parameter, required WidgetField field, String? widgetName}) {
-    final knobName = widgetName == null ? parameter.name : '${parameter.name} (${widgetName})';
+  static Reference _buildKnob({required WidgetParameter parameter, required WidgetField field, String? path}) {
+    final knobName = path == null ? parameter.name : '${parameter.name} (${path})';
     final isNullable = parameter.type.isNullable;
     final defaultValue = field.overridenDefaultValue ?? parameter.defaultValue ?? (isNullable ? 'null' : parameter.type.defaultValue);
 

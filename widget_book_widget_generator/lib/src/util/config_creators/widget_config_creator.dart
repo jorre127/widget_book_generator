@@ -13,18 +13,31 @@ class WidgetConfigCreator {
 
   List<WidgetConfig> create(ClassElement widget) {
     final annotations = widgetBookWidgetTypeChecker.annotationsOf(widget, throwOnUnresolved: false);
-    return annotations.map((annotation) => _createWidgetConfig(widget)).toList();
+    return annotations.map((annotation) => _createWidgetConfig(widget: widget)).toList();
   }
 
-  WidgetConfig _createWidgetConfig(
-    ClassElement widget,
-  ) {
+  WidgetConfig _createWidgetConfig({
+    required ClassElement widget,
+    String? path,
+  }) {
+    final hasParent = path != null;
     final constructor = widget.constructors.first;
-    final parameters = constructor.parameters.map(WidgetParameter.fromParameterElement).toList();
+    final parameters = constructor.parameters.map((parameter) => WidgetParameter.fromParameterElement(element: parameter, importResolver: _importResolver)).toList();
     final fields = Map.fromEntries(widget.fields.map((field) => MapEntry(field.name, WidgetField.fromFieldElement(field))));
-    final widgetConfigs = Map.fromEntries(parameters
-        .where((parameter) => parameter.type.type == DataTypeEnum.custom && parameter.element is ClassElement && fields[parameter.name]?.ignore != true)
-        .map((parameter) => MapEntry(parameter.name, _createWidgetConfig(parameter.element as ClassElement))));
+    final widgetConfigs = Map.fromEntries(
+      parameters.where((parameter) => parameter.type.type == DataTypeEnum.custom && parameter.element is ClassElement && fields[parameter.name]?.ignore != true).map(
+            (parameter) => MapEntry(
+              parameter.name,
+              _createWidgetConfig(
+                widget: parameter.element as ClassElement,
+                path: [
+                  if (hasParent) path,
+                  parameter.name,
+                ].join('/'),
+              ),
+            ),
+          ),
+    );
 
     final name = widget.name;
 
@@ -34,6 +47,7 @@ class WidgetConfigCreator {
       widgetConfigs: widgetConfigs,
       name: name,
       import: _importResolver.resolveImport(widget),
+      path: path,
     );
   }
 }

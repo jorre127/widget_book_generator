@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:widget_book_widget_generator/src/models/data_type.dart';
+import 'package:widget_book_widget_generator/src/util/import_resolver.dart';
 
 class WidgetParameter {
   final bool isRequired;
@@ -24,14 +25,18 @@ class WidgetParameter {
     this.element,
   });
 
-  WidgetParameter.fromParameterElement(ParameterElement element)
+  WidgetParameter.fromParameterElement({required ParameterElement element, required ImportResolver importResolver})
       : name = element.name,
         id = element.id,
         isRequired = element.isRequired,
         isNullable = element.type.nullabilitySuffix == NullabilitySuffix.question,
         defaultValue = element.defaultValueCode,
         isNamed = element.isNamed,
-        type = DataType.fromDartType(type: element.type, name: element.name),
+        type = DataType.fromDartType(
+          type: element.type,
+          name: element.name,
+          importResolver: importResolver,
+        ),
         element = element.type.element;
 
   Map<String, dynamic> toMap() => {

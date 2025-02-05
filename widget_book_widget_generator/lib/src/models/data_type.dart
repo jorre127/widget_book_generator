@@ -1,12 +1,14 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/type.dart';
+import 'package:widget_book_widget_generator/src/util/import_resolver.dart';
 
 class DataType {
   final String name;
   final String defaultValue;
   final DataTypeEnum? type;
   final String typeString;
+  final String? import;
   final bool isEnum;
   final bool isFunction;
   final bool isNullable;
@@ -19,14 +21,16 @@ class DataType {
     required this.type,
     required this.typeString,
     required this.isNullable,
+    this.import,
     this.enumValues,
     this.isFunction = false,
   });
 
-  factory DataType.fromDartType({required DartType type, required String name}) {
+  factory DataType.fromDartType({required DartType type, required String name, required ImportResolver importResolver}) {
     final typeString = type.getDisplayString(withNullability: true);
     final isNullable = type.nullabilitySuffix == NullabilitySuffix.question;
     bool isFunction = false;
+    String? import;
     List<String> enumValues = [];
 
     if (type is FunctionType) {
@@ -38,6 +42,7 @@ class DataType {
 
     if (element is EnumElement) {
       enumValues = element.fields.where((field) => field.name != 'values').map((field) => field.name).toList();
+      import = importResolver.resolveImport(element);
     }
 
     final dataType = switch (typeString) {
@@ -111,6 +116,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: '${typeString.replaceAll('?', '')}.${enumValues.first}',
           type: DataTypeEnum.enumType,
+          import: import,
           enumValues: enumValues,
           typeString: type.getDisplayString(withNullability: true)),
       _ when isFunction => DataType(
@@ -147,7 +153,7 @@ class DataType {
 
   static String _getDefaultValueFunction(FunctionType type) {
     final parameters = type.parameters.map((e) => '${e.type.getDisplayString(withNullability: true)} ${e.name}').join(', ');
-    return '($parameters)${type.isDartAsyncFuture ? ' async' : ''} {}';
+    return '($parameters)${type.returnType.isDartAsyncFuture ? ' async' : ''} {}';
   }
 
   Map<String, dynamic> toMap() => {
@@ -158,6 +164,7 @@ class DataType {
         'enumValues': enumValues,
         'typeString': typeString,
         'isNullable': isNullable,
+        'import': import,
       };
 
   factory DataType.fromMap(Map<String, dynamic> map) => DataType(
@@ -168,6 +175,7 @@ class DataType {
         enumValues: (map['enumValues'] as List<dynamic>?)?.map((e) => e as String).toList(),
         typeString: map['typeString'],
         isNullable: map['isNullable'],
+        import: map['import'],
       );
 }
 

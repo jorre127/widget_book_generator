@@ -6,13 +6,16 @@ class UseCasesImportBuilder {
   UseCasesImportBuilder._();
 
   static List<Directive> createImports(List<WidgetConfig> configs) {
-    final customImports = configs.map((config) => config.allWidgetConfigs).expand((config) => config).map((config)=> config.import);
+    final allConfigs = configs.map((config) => config.allWidgetConfigs).expand((config) => config);
+    final extraImports = allConfigs.map((config) => config.parameters.map((parameter) => parameter.type.import)).expand((config) => config).whereType<String>();
+    final classImports = allConfigs.map((config) => config.import);
     final imports = [
       'package:flutter/material.dart',
       'package:widgetbook/widgetbook.dart',
       'package:widgetbook_annotation/widgetbook_annotation.dart',
-      ...customImports.toSet(),
-    ].whereType<String>();
+      ...extraImports,
+      ...classImports,
+    ].whereType<String>().toSet();
 
     return imports.map(Directive.import).toList();
   }
