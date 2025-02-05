@@ -17,6 +17,7 @@ class UseCasesBuilder {
       'prefer_const_constructors',
       'avoid_init_to_null',
       'unnecessary_import',
+      'prefer_collection_literals',
     ];
     return Library(
       (libraryBuilder) => libraryBuilder
