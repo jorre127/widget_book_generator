@@ -5,12 +5,13 @@ import 'package:widget_book_widget_generator/src/models/widget_field.dart';
 import 'package:widget_book_widget_generator/src/models/widget_parameter.dart';
 import 'package:widget_book_widget_generator/src/util/case_util.dart';
 import 'package:widget_book_widget_generator/src/util/extensions/spec_extension.dart';
+import 'package:widget_book_widget_generator/src/util/widget_config_extension.dart';
 
 class UseCaseVariableBuilder {
   UseCaseVariableBuilder._();
 
   static List<Spec> createUseCaseVariables(WidgetConfig config) {
-    final widgetConfigs = _getAllWidgetConfigs(config);
+    final widgetConfigs = config.allWidgetConfigs;
 
     return widgetConfigs
         .map((config) {
@@ -31,13 +32,6 @@ class UseCaseVariableBuilder {
         })
         .expand((field) => field)
         .toList();
-  }
-
-  static List<WidgetConfig> _getAllWidgetConfigs(WidgetConfig config) {
-    final allConfigs =
-        config.widgetConfigs.values.expand((element) => [element, ...element.widgetConfigs.entries.map((config) => _getAllWidgetConfigs(config.value)).expand((config) => config)]);
-
-    return [config, ...allConfigs];
   }
 
   static Reference _buildKnob({required WidgetParameter parameter, required WidgetField field, String? widgetName}) {
