@@ -41,7 +41,7 @@ class DataType {
     final element = type.element;
 
     if (element is EnumElement) {
-      enumValues = element.fields.where((field) => field.name != 'values').map((field) => field.name).toList();
+      enumValues = element.fields.where((field) => field.isEnumConstant).map((field) => field.name).toList();
       import = importResolver.resolveImport(element);
     }
 
