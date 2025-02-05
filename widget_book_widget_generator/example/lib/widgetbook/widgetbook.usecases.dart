@@ -4,7 +4,7 @@
 // WidgetBookWidgetGenerator
 // **************************************************************************
 
-// ignore_for_file: prefer_function_declarations_over_variables
+// ignore_for_file: prefer_function_declarations_over_variables, prefer_final_locals, omit_local_variable_types, prefer_int_literals, avoid_types_on_closure_parameters, avoid_positional_boolean_parameters, prefer_const_constructors, avoid_init_to_null
 
 import 'package:example/widget/flutter_template_input_field.dart';
 import 'package:example/widget/test_back_button.dart';
@@ -21,12 +21,9 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart';
   type: TestProgressIndicator,
 )
 Widget testProgressIndicatorUseCase(BuildContext context) {
-  bool testProgressIndicatorDark =
-      context.knobs.boolean(label: 'dark', initialValue: true);
+  bool dark = context.knobs.boolean(label: 'dark', initialValue: true);
 
-  return Scaffold(
-      body: Center(
-          child: TestProgressIndicator(dark: testProgressIndicatorDark)));
+  return Center(child: TestProgressIndicator(dark: dark));
 }
 
 @UseCase(
@@ -34,31 +31,29 @@ Widget testProgressIndicatorUseCase(BuildContext context) {
   type: TestButton,
 )
 Widget testButtonUseCase(BuildContext context) {
-  String testButtonText =
-      context.knobs.string(label: 'text', initialValue: 'Override');
+  String text = context.knobs.string(label: 'text', initialValue: 'Override');
 
-  void Function()? testButtonOnClick = () {};
+  void Function()? onClick = null;
 
-  bool testButtonIsExpanded =
+  bool isExpanded =
       context.knobs.boolean(label: 'isExpanded', initialValue: true);
 
-  bool testButtonIsEnabled =
+  bool isEnabled =
       context.knobs.boolean(label: 'isEnabled', initialValue: false);
 
-  ButtonType testButtonButtonType = context.knobs.list(
+  ButtonType buttonType = context.knobs.list(
       label: 'buttonType',
       initialOption: ButtonType.regular,
       options: [ButtonType.regular, ButtonType.text]);
 
-  return Scaffold(
-      body: Center(
-          child: TestButton(
-    text: testButtonText,
-    onClick: testButtonOnClick,
-    isExpanded: testButtonIsExpanded,
-    isEnabled: testButtonIsEnabled,
-    buttonType: testButtonButtonType,
-  )));
+  return Center(
+      child: TestButton(
+    text: text,
+    onClick: onClick,
+    isExpanded: isExpanded,
+    isEnabled: isEnabled,
+    buttonType: buttonType,
+  ));
 }
 
 @UseCase(
@@ -66,28 +61,25 @@ Widget testButtonUseCase(BuildContext context) {
   type: FlutterTemplateInputField,
 )
 Widget flutterTemplateInputFieldUseCase(BuildContext context) {
-  String flutterTemplateInputFieldHint =
-      context.knobs.string(label: 'hint', initialValue: '');
+  String hint = context.knobs.string(label: 'hint', initialValue: '');
 
-  void Function(String) flutterTemplateInputFieldOnChanged = (String value) {};
+  void Function(String) onChanged = (String value) {};
 
-  List<String>? flutterTemplateInputFieldAutoFillHints = const [];
+  List<String>? autoFillHints = null;
 
-  bool flutterTemplateInputFieldEnabled =
-      context.knobs.boolean(label: 'enabled', initialValue: true);
+  bool enabled = context.knobs.boolean(label: 'enabled', initialValue: true);
 
-  String? textEditingControllerText = context.knobs
-      .string(label: 'text (TextEditingController)', initialValue: '');
+  String? controllerText = context.knobs
+      .stringOrNull(label: 'text (controller)', initialValue: null);
 
-  return Scaffold(
-      body: Center(
-          child: FlutterTemplateInputField(
-    hint: flutterTemplateInputFieldHint,
-    onChanged: flutterTemplateInputFieldOnChanged,
-    autoFillHints: flutterTemplateInputFieldAutoFillHints,
-    enabled: flutterTemplateInputFieldEnabled,
-    controller: TextEditingController(text: textEditingControllerText),
-  )));
+  return Center(
+      child: FlutterTemplateInputField(
+    hint: hint,
+    onChanged: onChanged,
+    autoFillHints: autoFillHints,
+    enabled: enabled,
+    controller: TextEditingController(text: controllerText),
+  ));
 }
 
 @UseCase(
@@ -95,38 +87,36 @@ Widget flutterTemplateInputFieldUseCase(BuildContext context) {
   type: TestBackButton,
 )
 Widget testBackButtonUseCase(BuildContext context) {
-  void Function()? testBackButtonOnClick = () {};
+  void Function()? onClick = null;
 
-  bool testBackButtonIsLight =
-      context.knobs.boolean(label: 'isLight', initialValue: true);
+  bool isLight = context.knobs.boolean(label: 'isLight', initialValue: true);
 
-  bool testBackButtonFullScreen =
+  bool fullScreen =
       context.knobs.boolean(label: 'fullScreen', initialValue: false);
 
-  void Function()? testBackButtonDataOnClick = () {};
+  void Function()? dataOnClick = null;
 
-  bool testBackButtonDataIsLight = context.knobs
-      .boolean(label: 'isLight (TestBackButtonData)', initialValue: true);
+  bool dataFullScreen =
+      context.knobs.boolean(label: 'fullScreen (data)', initialValue: true);
 
-  bool testBackButtonDataFullScreen = context.knobs
-      .boolean(label: 'fullScreen (TestBackButtonData)', initialValue: false);
+  bool dataIsLight =
+      context.knobs.boolean(label: 'isLight (data)', initialValue: true);
 
-  bool testBackButtonSubDataEnabled = context.knobs
-      .boolean(label: 'enabled (TestBackButtonSubData)', initialValue: true);
+  bool dataSubDataEnabled = context.knobs
+      .boolean(label: 'enabled (data/subData)', initialValue: true);
 
-  return Scaffold(
-      body: Center(
-          child: TestBackButton(
-    onClick: testBackButtonOnClick,
+  return Center(
+      child: TestBackButton(
+    onClick: onClick,
     data: TestBackButtonData(
-      onClick: testBackButtonDataOnClick,
-      subData: TestBackButtonSubData(enabled: testBackButtonSubDataEnabled),
-      isLight: testBackButtonDataIsLight,
-      fullScreen: testBackButtonDataFullScreen,
+      onClick: dataOnClick,
+      subData: TestBackButtonSubData(enabled: dataSubDataEnabled),
+      fullScreen: dataFullScreen,
+      isLight: dataIsLight,
     ),
-    isLight: testBackButtonIsLight,
-    fullScreen: testBackButtonFullScreen,
-  )));
+    isLight: isLight,
+    fullScreen: fullScreen,
+  ));
 }
 
 @UseCase(
@@ -134,17 +124,15 @@ Widget testBackButtonUseCase(BuildContext context) {
   type: TestCheckBox,
 )
 Widget testCheckBoxUseCase(BuildContext context) {
-  bool testCheckBoxValue =
-      context.knobs.boolean(label: 'value', initialValue: true);
+  bool value = context.knobs.boolean(label: 'value', initialValue: true);
 
-  void Function(bool) testCheckBoxOnChanged = (bool value) {};
+  void Function(bool) onChanged = (bool value) {};
 
-  return Scaffold(
-      body: Center(
-          child: TestCheckBox(
-    value: testCheckBoxValue,
-    onChanged: testCheckBoxOnChanged,
-  )));
+  return Center(
+      child: TestCheckBox(
+    value: value,
+    onChanged: onChanged,
+  ));
 }
 
 @UseCase(
@@ -152,15 +140,13 @@ Widget testCheckBoxUseCase(BuildContext context) {
   type: TestSwitch,
 )
 Widget testSwitchUseCase(BuildContext context) {
-  bool testSwitchValue =
-      context.knobs.boolean(label: 'value', initialValue: true);
+  bool value = context.knobs.boolean(label: 'value', initialValue: true);
 
-  void Function(bool) testSwitchOnChanged = (bool value) {};
+  void Function(bool) onChanged = (bool value) {};
 
-  return Scaffold(
-      body: Center(
-          child: TestSwitch(
-    value: testSwitchValue,
-    onChanged: testSwitchOnChanged,
-  )));
+  return Center(
+      child: TestSwitch(
+    value: value,
+    onChanged: onChanged,
+  ));
 }

@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:widget_book_widget_generator_annotations/widget_book_widget_generator_annotations.dart';
 
-class TestBackButtonData {
-  final TestBackButtonSubData subData;
-  final VoidCallback? onClick;
+class BaseBackButtonData {
   final bool fullScreen;
   final bool isLight;
+
+  const BaseBackButtonData({
+    required this.fullScreen,
+    required this.isLight,
+  });
+}
+
+class TestBackButtonData extends BaseBackButtonData {
+  final TestBackButtonSubData subData;
+  final VoidCallback? onClick;
 
   const TestBackButtonData({
     required this.onClick,
     required this.subData,
-    this.isLight = true,
-    this.fullScreen = false,
-  });
+    required bool fullScreen,
+    required bool isLight,
+  }) : super(
+          fullScreen: fullScreen,
+          isLight: isLight,
+        );
 }
 
 class TestBackButtonSubData {
