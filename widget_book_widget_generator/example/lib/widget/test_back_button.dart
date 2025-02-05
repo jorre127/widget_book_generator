@@ -14,10 +14,12 @@ class BaseBackButtonData {
 class TestBackButtonData extends BaseBackButtonData {
   final TestBackButtonSubData subData;
   final VoidCallback? onClick;
+  final ValueNotifier<bool> valueNotifier;
 
   const TestBackButtonData({
     required this.onClick,
     required this.subData,
+    required this.valueNotifier,
     required bool fullScreen,
     required bool isLight,
   }) : super(

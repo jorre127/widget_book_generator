@@ -26,8 +26,15 @@ class DataType {
     this.isFunction = false,
   });
 
-  factory DataType.fromDartType({required DartType type, required String name, required ImportResolver importResolver}) {
-    final typeString = type.getDisplayString(withNullability: true);
+  factory DataType.fromDartType({
+    required DartType type,
+    required String name,
+    required ImportResolver importResolver,
+    DartType? genericType,
+  }) {
+    var typeString = type.getDisplayString(withNullability: true);
+    if (typeString == 'T' || typeString == 'T?') typeString = genericType?.getDisplayString(withNullability: true) ?? 'dynamic';
+
     final isNullable = type.nullabilitySuffix == NullabilitySuffix.question;
     bool isFunction = false;
     String? import;
@@ -52,7 +59,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: "''",
           type: DataTypeEnum.string,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       'int' || 'int?' => DataType(
           name: 'int',
@@ -60,7 +67,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: '0',
           type: DataTypeEnum.int,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       'double' || 'double?' => DataType(
           name: 'double',
@@ -68,7 +75,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: '0.0',
           type: DataTypeEnum.double,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       'bool' || 'bool?' => DataType(
           name: 'bool',
@@ -76,7 +83,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: 'true',
           type: DataTypeEnum.bool,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       'Color' || 'Color?' => DataType(
           name: 'Color',
@@ -84,7 +91,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: 'Colors.blue',
           type: DataTypeEnum.color,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       'DateTime' || 'DateTime?' => DataType(
           name: 'DateTime',
@@ -92,7 +99,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: 'DateTime.now()',
           type: DataTypeEnum.date,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       'Key' || 'Key?' => DataType(
           name: 'Key',
@@ -100,7 +107,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: 'null',
           type: DataTypeEnum.key,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       'Widget' || 'Widget?' => DataType(
           name: 'Widget',
@@ -108,7 +115,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: 'SizedBox.shrink()',
           type: DataTypeEnum.widget,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       _ when enumValues.isNotEmpty => DataType(
           name: typeString,
@@ -118,21 +125,21 @@ class DataType {
           type: DataTypeEnum.enumType,
           import: import,
           enumValues: enumValues,
-          typeString: type.getDisplayString(withNullability: true)),
+          typeString: typeString),
       _ when isFunction => DataType(
           name: typeString,
           isEnum: false,
           isNullable: isNullable,
           defaultValue: _getDefaultValueFunction(type as FunctionType),
           type: DataTypeEnum.function,
-          typeString: type.getDisplayString(withNullability: true)),
+          typeString: typeString),
       _ when isList => DataType(
           name: typeString,
           isEnum: false,
           isNullable: isNullable,
           defaultValue: 'const []',
           type: DataTypeEnum.list,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
       _ => DataType(
           name: typeString,
@@ -140,7 +147,7 @@ class DataType {
           isNullable: isNullable,
           defaultValue: 'null',
           type: DataTypeEnum.custom,
-          typeString: type.getDisplayString(withNullability: true),
+          typeString: typeString,
         ),
     };
 
