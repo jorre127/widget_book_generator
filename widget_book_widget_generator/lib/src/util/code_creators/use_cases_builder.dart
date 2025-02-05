@@ -8,7 +8,7 @@ class UseCasesBuilder {
 
   static Library createUseCasesContent(List<WidgetConfig> configs) {
     final comments = [
-      'ignore_for_file: prefer_function_declarations_over_variables,',
+      'ignore_for_file: prefer_function_declarations_over_variables',
       'prefer_final_locals',
       'omit_local_variable_types',
       'prefer_int_literals',
