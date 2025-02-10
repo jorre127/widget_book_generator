@@ -1,3 +1,1 @@
-# widget_book_widget_generator_annotations
-
-A new Flutter project.
+The annotations for the Widget_book_widget_generator package
