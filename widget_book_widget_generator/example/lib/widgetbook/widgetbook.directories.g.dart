@@ -32,11 +32,11 @@ final directories = <_i1.WidgetbookNode>[
           ),
           _i1.WidgetbookUseCase(
             name: 'TestBackButton (dark)',
-            builder: _i2.testBackButtonUseCasedark,
+            builder: _i2.testBackButtonUseCaseDark,
           ),
           _i1.WidgetbookUseCase(
             name: 'TestBackButton (light)',
-            builder: _i2.testBackButtonUseCaselight,
+            builder: _i2.testBackButtonUseCaseLight,
           ),
         ],
       ),
@@ -49,7 +49,7 @@ final directories = <_i1.WidgetbookNode>[
           ),
           _i1.WidgetbookUseCase(
             name: 'TestButton (text)',
-            builder: _i2.testButtonUseCasetext,
+            builder: _i2.testButtonUseCaseText,
           ),
         ],
       ),
@@ -69,11 +69,11 @@ final directories = <_i1.WidgetbookNode>[
           ),
           _i1.WidgetbookUseCase(
             name: 'TestProgressIndicator (dark)',
-            builder: _i2.testProgressIndicatorUseCasedark,
+            builder: _i2.testProgressIndicatorUseCaseDark,
           ),
           _i1.WidgetbookUseCase(
             name: 'TestProgressIndicator (light)',
-            builder: _i2.testProgressIndicatorUseCaselight,
+            builder: _i2.testProgressIndicatorUseCaseLight,
           ),
         ],
       ),

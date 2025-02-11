@@ -44,7 +44,7 @@ class WidgetConfig {
 
   bool shouldNotGenerateVariableForParameter(WidgetParameter parameter) {
     final field = fields[parameter.name];
-    return field == null || field.ignore || (parameter.type.type == DataTypeEnum.custom && field.overridenDefaultValue == null);
+    return parameter.type.type == DataTypeEnum.key || field?.ignore == true || (parameter.type.type == DataTypeEnum.custom && field?.overridenDefaultValue == null);
   }
 
   String getVariableName(WidgetParameter parameter) {

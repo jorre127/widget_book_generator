@@ -4,11 +4,13 @@ import 'package:widget_book_widget_generator_annotations/widget_book_widget_gene
 @widgetBookWidget
 class TestSwitch extends StatelessWidget {
   final bool value;
+  final Duration duration;
   final ValueChanged<bool> onChanged;
 
   const TestSwitch({
     required this.value,
     required this.onChanged,
+    required this.duration,
     super.key,
   });
 
@@ -24,7 +26,7 @@ class TestSwitch extends StatelessWidget {
           borderRadius: BorderRadius.circular(99999),
         ),
         child: AnimatedAlign(
-          duration: const Duration(microseconds: 500),
+          duration: duration,
           alignment: value ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
             margin: const EdgeInsets.all(2),

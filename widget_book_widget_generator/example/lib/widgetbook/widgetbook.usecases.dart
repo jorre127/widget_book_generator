@@ -30,7 +30,7 @@ Widget testProgressIndicatorUseCase(BuildContext context) {
   name: 'TestProgressIndicator (dark)',
   type: TestProgressIndicator,
 )
-Widget testProgressIndicatorUseCasedark(BuildContext context) {
+Widget testProgressIndicatorUseCaseDark(BuildContext context) {
   return Center(child: TestProgressIndicator.dark());
 }
 
@@ -38,7 +38,7 @@ Widget testProgressIndicatorUseCasedark(BuildContext context) {
   name: 'TestProgressIndicator (light)',
   type: TestProgressIndicator,
 )
-Widget testProgressIndicatorUseCaselight(BuildContext context) {
+Widget testProgressIndicatorUseCaseLight(BuildContext context) {
   return Center(child: TestProgressIndicator.light());
 }
 
@@ -76,7 +76,7 @@ Widget testButtonUseCase(BuildContext context) {
   name: 'TestButton (text)',
   type: TestButton,
 )
-Widget testButtonUseCasetext(BuildContext context) {
+Widget testButtonUseCaseText(BuildContext context) {
   String text = context.knobs.string(label: 'text', initialValue: 'Override');
 
   void Function()? onClick = null;
@@ -177,7 +177,7 @@ Widget testBackButtonUseCase(BuildContext context) {
   name: 'TestBackButton (light)',
   type: TestBackButton,
 )
-Widget testBackButtonUseCaselight(BuildContext context) {
+Widget testBackButtonUseCaseLight(BuildContext context) {
   void Function()? onClick = null;
 
   bool fullScreen =
@@ -215,7 +215,7 @@ Widget testBackButtonUseCaselight(BuildContext context) {
   name: 'TestBackButton (dark)',
   type: TestBackButton,
 )
-Widget testBackButtonUseCasedark(BuildContext context) {
+Widget testBackButtonUseCaseDark(BuildContext context) {
   void Function()? onClick = null;
 
   bool fullScreen =
@@ -274,9 +274,35 @@ Widget testSwitchUseCase(BuildContext context) {
 
   void Function(bool) onChanged = (bool value) {};
 
+  int durationDays =
+      context.knobs.int.input(label: 'days (duration)', initialValue: 0);
+
+  int durationHours =
+      context.knobs.int.input(label: 'hours (duration)', initialValue: 0);
+
+  int durationMinutes =
+      context.knobs.int.input(label: 'minutes (duration)', initialValue: 0);
+
+  int durationSeconds =
+      context.knobs.int.input(label: 'seconds (duration)', initialValue: 0);
+
+  int durationMilliseconds = context.knobs.int
+      .input(label: 'milliseconds (duration)', initialValue: 0);
+
+  int durationMicroseconds = context.knobs.int
+      .input(label: 'microseconds (duration)', initialValue: 0);
+
   return Center(
       child: TestSwitch(
     value: value,
     onChanged: onChanged,
+    duration: Duration(
+      days: durationDays,
+      hours: durationHours,
+      minutes: durationMinutes,
+      seconds: durationSeconds,
+      milliseconds: durationMilliseconds,
+      microseconds: durationMicroseconds,
+    ),
   ));
 }

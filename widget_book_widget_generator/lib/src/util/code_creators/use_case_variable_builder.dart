@@ -24,7 +24,7 @@ class UseCaseVariableBuilder {
                   ..name = config.getVariableName(parameter)
                   ..modifier = FieldModifier.var$
                   ..type = Reference(parameter.type.typeString)
-                  ..assignment = Code(_buildKnob(field: config.fields[parameter.name]!, parameter: parameter, path: isParentWidget ? null : config.path).toDart()),
+                  ..assignment = Code(_buildKnob(field: config.fields[parameter.name], parameter: parameter, path: isParentWidget ? null : config.path).toDart()),
               );
             },
           ).whereType<Field>();
@@ -33,13 +33,13 @@ class UseCaseVariableBuilder {
         .toList();
   }
 
-  static Reference _buildKnob({required WidgetParameter parameter, required WidgetField field, String? path}) {
+  static Reference _buildKnob({required WidgetParameter parameter, required WidgetField? field, String? path}) {
     final knobName = path == null ? parameter.name : '${parameter.name} (${path})';
     final isNullable = parameter.type.isNullable;
-    final defaultValue = field.overridenDefaultValue ?? parameter.defaultValue ?? (isNullable ? 'null' : parameter.type.defaultValue);
+    final defaultValue = field?.overridenDefaultValue ?? parameter.defaultValue ?? (isNullable ? 'null' : parameter.type.defaultValue);
 
     final knob = switch (parameter.type.type) {
-      _ when field.options?.isNotEmpty == true => _buildListKnob(name: knobName, initialValue: field.options?.first, values: field.options.toString()),
+      _ when field?.options?.isNotEmpty == true => _buildListKnob(name: knobName, initialValue: field!.options?.first, values: field.options.toString()),
       DataTypeEnum.string => "context.knobs.string${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.int => "context.knobs.int${isNullable ? 'OrNull' : ''}.input(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.double => "context.knobs.double${isNullable ? 'OrNull' : ''}.input(label: '$knobName', initialValue:${defaultValue} )",
