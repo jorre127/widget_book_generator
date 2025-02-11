@@ -7,11 +7,13 @@ class WidgetConfig {
   final String name;
   final String? import;
   final String? path;
+  final String constructorName;
   final List<WidgetParameter> parameters;
   final Map<String, WidgetField> fields;
   final Map<String, WidgetConfig> widgetConfigs;
 
   const WidgetConfig({
+    required this.constructorName,
     required this.widgetConfigs,
     required this.import,
     required this.parameters,
@@ -27,6 +29,7 @@ class WidgetConfig {
         'fields': fields.map((key, value) => MapEntry(key, value.toMap())),
         'widgetConfigs': widgetConfigs.map((key, value) => MapEntry(key, value.toMap())),
         'path': path,
+        'constructorName': constructorName,
       };
 
   factory WidgetConfig.fromMap(Map<String, dynamic> map) => WidgetConfig(
@@ -36,6 +39,7 @@ class WidgetConfig {
         fields: (map['fields'] as Map).map((key, value) => MapEntry(key, WidgetField.fromMap(value))),
         widgetConfigs: (map['widgetConfigs'] as Map).map((key, value) => MapEntry(key, WidgetConfig.fromMap(value))),
         path: map['path'],
+        constructorName: map['constructorName'],
       );
 
   bool shouldNotGenerateVariableForParameter(WidgetParameter parameter) {

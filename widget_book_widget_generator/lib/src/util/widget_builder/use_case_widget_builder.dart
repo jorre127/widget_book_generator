@@ -10,7 +10,12 @@ class WidgetBuilder {
   static Expression buildWidgetFromConf(WidgetConfig child) {
     final namedParameters = child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key);
     final unnamedParameters = child.parameters.where((parameter) => !parameter.isNamed && parameter.type.type != DataTypeEnum.key);
-    return Reference(child.name).newInstance(
+    final className = [
+      child.name,
+      if (child.constructorName.isNotEmpty) child.constructorName,
+    ].join('.');
+    
+    return Reference(className).newInstance(
       unnamedParameters.map((parameter) {
         final value = _getValue(child: child, parameter: parameter);
         if (value == null) return null;

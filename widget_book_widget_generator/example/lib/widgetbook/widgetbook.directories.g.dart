@@ -23,19 +23,35 @@ final directories = <_i1.WidgetbookNode>[
           builder: _i2.flutterTemplateInputFieldUseCase,
         ),
       ),
-      _i1.WidgetbookLeafComponent(
+      _i1.WidgetbookComponent(
         name: 'TestBackButton',
-        useCase: _i1.WidgetbookUseCase(
-          name: 'TestBackButton',
-          builder: _i2.testBackButtonUseCase,
-        ),
+        useCases: [
+          _i1.WidgetbookUseCase(
+            name: 'TestBackButton',
+            builder: _i2.testBackButtonUseCase,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'TestBackButton (dark)',
+            builder: _i2.testBackButtonUseCasedark,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'TestBackButton (light)',
+            builder: _i2.testBackButtonUseCaselight,
+          ),
+        ],
       ),
-      _i1.WidgetbookLeafComponent(
+      _i1.WidgetbookComponent(
         name: 'TestButton',
-        useCase: _i1.WidgetbookUseCase(
-          name: 'TestButton',
-          builder: _i2.testButtonUseCase,
-        ),
+        useCases: [
+          _i1.WidgetbookUseCase(
+            name: 'TestButton',
+            builder: _i2.testButtonUseCase,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'TestButton (text)',
+            builder: _i2.testButtonUseCasetext,
+          ),
+        ],
       ),
       _i1.WidgetbookLeafComponent(
         name: 'TestCheckBox',
@@ -44,12 +60,22 @@ final directories = <_i1.WidgetbookNode>[
           builder: _i2.testCheckBoxUseCase,
         ),
       ),
-      _i1.WidgetbookLeafComponent(
+      _i1.WidgetbookComponent(
         name: 'TestProgressIndicator',
-        useCase: _i1.WidgetbookUseCase(
-          name: 'TestProgressIndicator',
-          builder: _i2.testProgressIndicatorUseCase,
-        ),
+        useCases: [
+          _i1.WidgetbookUseCase(
+            name: 'TestProgressIndicator',
+            builder: _i2.testProgressIndicatorUseCase,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'TestProgressIndicator (dark)',
+            builder: _i2.testProgressIndicatorUseCasedark,
+          ),
+          _i1.WidgetbookUseCase(
+            name: 'TestProgressIndicator (light)',
+            builder: _i2.testProgressIndicatorUseCaselight,
+          ),
+        ],
       ),
       _i1.WidgetbookLeafComponent(
         name: 'TestSwitch',

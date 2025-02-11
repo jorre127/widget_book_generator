@@ -27,6 +27,22 @@ Widget testProgressIndicatorUseCase(BuildContext context) {
 }
 
 @UseCase(
+  name: 'TestProgressIndicator (dark)',
+  type: TestProgressIndicator,
+)
+Widget testProgressIndicatorUseCasedark(BuildContext context) {
+  return Center(child: TestProgressIndicator.dark());
+}
+
+@UseCase(
+  name: 'TestProgressIndicator (light)',
+  type: TestProgressIndicator,
+)
+Widget testProgressIndicatorUseCaselight(BuildContext context) {
+  return Center(child: TestProgressIndicator.light());
+}
+
+@UseCase(
   name: 'TestButton',
   type: TestButton,
 )
@@ -48,6 +64,36 @@ Widget testButtonUseCase(BuildContext context) {
 
   return Center(
       child: TestButton(
+    text: text,
+    onClick: onClick,
+    isExpanded: isExpanded,
+    isEnabled: isEnabled,
+    buttonType: buttonType,
+  ));
+}
+
+@UseCase(
+  name: 'TestButton (text)',
+  type: TestButton,
+)
+Widget testButtonUseCasetext(BuildContext context) {
+  String text = context.knobs.string(label: 'text', initialValue: 'Override');
+
+  void Function()? onClick = null;
+
+  bool isExpanded =
+      context.knobs.boolean(label: 'isExpanded', initialValue: false);
+
+  bool isEnabled =
+      context.knobs.boolean(label: 'isEnabled', initialValue: false);
+
+  ButtonType buttonType = context.knobs.list(
+      label: 'buttonType',
+      initialOption: ButtonType.text,
+      options: [ButtonType.regular, ButtonType.text]);
+
+  return Center(
+      child: TestButton.text(
     text: text,
     onClick: onClick,
     isExpanded: isExpanded,
@@ -123,6 +169,82 @@ Widget testBackButtonUseCase(BuildContext context) {
       isLight: dataIsLight,
     ),
     isLight: isLight,
+    fullScreen: fullScreen,
+  ));
+}
+
+@UseCase(
+  name: 'TestBackButton (light)',
+  type: TestBackButton,
+)
+Widget testBackButtonUseCaselight(BuildContext context) {
+  void Function()? onClick = null;
+
+  bool fullScreen =
+      context.knobs.boolean(label: 'fullScreen', initialValue: false);
+
+  void Function()? dataOnClick = null;
+
+  bool dataFullScreen =
+      context.knobs.boolean(label: 'fullScreen (data)', initialValue: true);
+
+  bool dataIsLight =
+      context.knobs.boolean(label: 'isLight (data)', initialValue: true);
+
+  bool dataSubDataEnabled = context.knobs
+      .boolean(label: 'enabled (data/subData)', initialValue: true);
+
+  bool dataValueNotifierValue = context.knobs
+      .boolean(label: '_value (data/valueNotifier)', initialValue: true);
+
+  return Center(
+      child: TestBackButton.light(
+    onClick: onClick,
+    data: TestBackButtonData(
+      onClick: dataOnClick,
+      subData: TestBackButtonSubData(enabled: dataSubDataEnabled),
+      valueNotifier: ValueNotifier(dataValueNotifierValue),
+      fullScreen: dataFullScreen,
+      isLight: dataIsLight,
+    ),
+    fullScreen: fullScreen,
+  ));
+}
+
+@UseCase(
+  name: 'TestBackButton (dark)',
+  type: TestBackButton,
+)
+Widget testBackButtonUseCasedark(BuildContext context) {
+  void Function()? onClick = null;
+
+  bool fullScreen =
+      context.knobs.boolean(label: 'fullScreen', initialValue: false);
+
+  void Function()? dataOnClick = null;
+
+  bool dataFullScreen =
+      context.knobs.boolean(label: 'fullScreen (data)', initialValue: true);
+
+  bool dataIsLight =
+      context.knobs.boolean(label: 'isLight (data)', initialValue: true);
+
+  bool dataSubDataEnabled = context.knobs
+      .boolean(label: 'enabled (data/subData)', initialValue: true);
+
+  bool dataValueNotifierValue = context.knobs
+      .boolean(label: '_value (data/valueNotifier)', initialValue: true);
+
+  return Center(
+      child: TestBackButton.dark(
+    onClick: onClick,
+    data: TestBackButtonData(
+      onClick: dataOnClick,
+      subData: TestBackButtonSubData(enabled: dataSubDataEnabled),
+      valueNotifier: ValueNotifier(dataValueNotifierValue),
+      fullScreen: dataFullScreen,
+      isLight: dataIsLight,
+    ),
     fullScreen: fullScreen,
   ));
 }

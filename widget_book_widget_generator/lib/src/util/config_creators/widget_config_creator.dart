@@ -14,20 +14,36 @@ class WidgetConfigCreator {
 
   List<WidgetConfig> create(ClassElement widget) {
     final annotations = widgetBookWidgetTypeChecker.annotationsOf(widget, throwOnUnresolved: false);
-    return annotations.map((annotation) => _createWidgetConfig(widget: widget)).toList();
+    return annotations.map((annotation) => _createWidgetConfig(widget: widget)).expand((widgets) => widgets).toList();
   }
 
-  WidgetConfig _createWidgetConfig({
+  List<WidgetConfig> _createWidgetConfig({
     required ClassElement widget,
     String? path,
     DartType? typedArgument,
   }) {
-    final hasParent = path != null;
-    final constructor = widget.constructors.first;
+    final constructors = widget.constructors;
+    return constructors
+        .map((constructor) => _createWidgetConfigFromConstructor(
+              widget: widget,
+              constructor: constructor,
+              typedArgument: typedArgument,
+              path: path,
+            ))
+        .toList();
+  }
+
+  WidgetConfig _createWidgetConfigFromConstructor({
+    required ClassElement widget,
+    required ConstructorElement constructor,
+    DartType? typedArgument,
+    String? path,
+  }) {
     final superWidget = widget.supertype?.element;
     final superFields = superWidget?.fields;
-    final combinedParameters = constructor.parameters;
     final combinedFields = widget.fields.followedBy(superFields ?? []);
+    final hasParent = path != null;
+    final combinedParameters = constructor.parameters;
     final parameters = combinedParameters
         .map((parameter) => WidgetParameter.fromParameterElement(
               element: parameter,
@@ -46,8 +62,9 @@ class WidgetConfigCreator {
           }
           return MapEntry(
             parameter.name,
-            _createWidgetConfig(
+            _createWidgetConfigFromConstructor(
               widget: parameter.element as ClassElement,
+              constructor: (parameter.element as ClassElement).constructors.first,
               path: [
                 if (hasParent) path,
                 parameter.name,
@@ -68,6 +85,7 @@ class WidgetConfigCreator {
       name: name,
       import: _importResolver.resolveImport(widget),
       path: path,
+      constructorName: constructor.name,
     );
   }
 }
