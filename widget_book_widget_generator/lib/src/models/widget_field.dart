@@ -4,7 +4,7 @@ import 'package:source_gen/source_gen.dart';
 import 'package:widget_book_widget_generator/src/type_checkers.dart';
 
 class WidgetField {
-  final String? overridenDefaultValue;
+  final dynamic overridenDefaultValue;
   final bool ignore;
   final List<String>? options;
 
@@ -16,7 +16,7 @@ class WidgetField {
 
   factory WidgetField.fromFieldElement(FieldElement field) {
     final annotation = ConstantReader(widgetBookWidgetFieldTypeChecker.firstAnnotationOf(field, throwOnUnresolved: false));
-    final overridenDefaultValue = annotation.peek('defaultValue')?.stringValue;
+    final overridenDefaultValue = _dartObjectToValue(annotation.peek('defaultValue')?.objectValue);
     final ignore = annotation.peek('ignore')?.boolValue;
     final options = annotation.peek('options')?.listValue.map((option) => _dartObjectToValue(option));
 
@@ -39,8 +39,8 @@ class WidgetField {
         options: (map['options'] as List?)?.map((option) => option as String).toList(),
       );
 
-  static dynamic _dartObjectToValue(DartObject dartObject) {
-    if (dartObject.isNull) return null;
+  static dynamic _dartObjectToValue(DartObject? dartObject) {
+    if (dartObject == null || dartObject.isNull) return null;
     final boolValue = dartObject.toBoolValue();
     if (boolValue != null) return boolValue;
 

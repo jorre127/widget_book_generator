@@ -11,9 +11,9 @@ enum ButtonType {
 
 @widgetBookWidget
 class TestButton extends StatelessWidget {
-  @WidgetBookWidgetField(defaultValue: "'Override'")
+  @WidgetBookWidgetField(defaultValue: 'Override')
   final String text;
-  @WidgetBookWidgetField(defaultValue: 'false')
+  @WidgetBookWidgetField(defaultValue: false)
   final bool isEnabled;
   final bool isExpanded;
   final VoidCallback? onClick;
