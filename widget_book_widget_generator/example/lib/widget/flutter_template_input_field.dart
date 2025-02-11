@@ -3,7 +3,20 @@ import 'package:widget_book_widget_generator_annotations/widget_book_widget_gene
 
 @widgetBookWidget
 class FlutterTemplateInputField extends StatelessWidget {
+  @WidgetBookWidgetField(
+    options: [
+      true,
+      false,
+    ],
+  )
   final bool enabled;
+  @WidgetBookWidgetField(
+    options: [
+      'emailAddress',
+      'username',
+      'password',
+    ],
+  )
   final String hint;
   final List<String>? autoFillHints;
   final ValueChanged<String> onChanged;

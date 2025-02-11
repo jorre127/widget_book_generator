@@ -39,12 +39,14 @@ class UseCaseVariableBuilder {
     final defaultValue = field.overridenDefaultValue ?? parameter.defaultValue ?? (isNullable ? 'null' : parameter.type.defaultValue);
 
     final knob = switch (parameter.type.type) {
+      _ when field.options?.isNotEmpty == true => _buildListKnob(name: knobName, initialValue: field.options?.first, values: field.options.toString()),
       DataTypeEnum.string => "context.knobs.string${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.int => "context.knobs.int${isNullable ? 'OrNull' : ''}.input(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.double => "context.knobs.double${isNullable ? 'OrNull' : ''}.input(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.bool => "context.knobs.boolean${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:${defaultValue} )",
       DataTypeEnum.color => "context.knobs.color${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue:$defaultValue )",
-      DataTypeEnum.date => "context.knobs.dateTime${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue: DateTime.now(), start: DateTime(1950, 1,1, 0, 0, 0), end: DateTime(2050, 1, 1, 0, 0, 0))",
+      DataTypeEnum.date =>
+        "context.knobs.dateTime${isNullable ? 'OrNull' : ''}(label: '$knobName', initialValue: DateTime.now(), start: DateTime(1950, 1,1, 0, 0, 0), end: DateTime(2050, 1, 1, 0, 0, 0))",
       DataTypeEnum.custom || DataTypeEnum.function || DataTypeEnum.key || DataTypeEnum.list || DataTypeEnum.widget => defaultValue,
       DataTypeEnum.enumType => _buildEnumKnob(type: parameter.type, defaultValue: defaultValue, name: knobName),
       null => defaultValue,
@@ -54,6 +56,14 @@ class UseCaseVariableBuilder {
 
   static String _buildEnumKnob({required DataType type, required String? defaultValue, required String name}) {
     final enumValuesString = type.enumValues?.map((e) => "${type.name.replaceAll('?', '')}.$e").join(', ');
-    return "context.knobs.list(label: '${name}', initialOption: $defaultValue, options: [$enumValuesString])";
+    return _buildListKnob(
+      name: name,
+      initialValue: defaultValue,
+      values: '[$enumValuesString]',
+    );
+  }
+
+  static String _buildListKnob({required String name, required String? initialValue, required String values}) {
+    return "context.knobs.list(label: '${name}', initialOption: $initialValue, options: $values)";
   }
 }

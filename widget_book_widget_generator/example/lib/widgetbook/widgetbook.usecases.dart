@@ -4,7 +4,7 @@
 // WidgetBookWidgetGenerator
 // **************************************************************************
 
-// ignore_for_file: prefer_function_declarations_over_variables, prefer_final_locals, omit_local_variable_types, prefer_int_literals, avoid_types_on_closure_parameters, avoid_positional_boolean_parameters, prefer_const_constructors, avoid_init_to_null, unnecessary_import
+// ignore_for_file: prefer_function_declarations_over_variables, prefer_final_locals, omit_local_variable_types, prefer_int_literals, avoid_types_on_closure_parameters, avoid_positional_boolean_parameters, prefer_const_constructors, avoid_init_to_null, unnecessary_import, prefer_collection_literals
 
 import 'package:example/widget/flutter_template_input_field.dart';
 import 'package:example/widget/test_back_button.dart';
@@ -61,13 +61,17 @@ Widget testButtonUseCase(BuildContext context) {
   type: FlutterTemplateInputField,
 )
 Widget flutterTemplateInputFieldUseCase(BuildContext context) {
-  String hint = context.knobs.string(label: 'hint', initialValue: '');
+  String hint = context.knobs.list(
+      label: 'hint',
+      initialOption: 'emailAddress',
+      options: ['emailAddress', 'username', 'password']);
 
   void Function(String) onChanged = (String value) {};
 
   List<String>? autoFillHints = null;
 
-  bool enabled = context.knobs.boolean(label: 'enabled', initialValue: true);
+  bool enabled = context.knobs
+      .list(label: 'enabled', initialOption: true, options: [true, false]);
 
   String? controllerText = context.knobs
       .stringOrNull(label: 'text (controller)', initialValue: null);

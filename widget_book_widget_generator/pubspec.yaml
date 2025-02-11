@@ -27,9 +27,9 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 # Comment before publishing
-#dependency_overrides:
- # widget_book_widget_generator_annotations: 
-   # path: ../widget_book_widget_generator_annotations
+dependency_overrides:
+  widget_book_widget_generator_annotations: 
+    path: ../widget_book_widget_generator_annotations
 
 flutter:
   uses-material-design: true
