@@ -1,6 +1,6 @@
 name: widget_book_widget_generator
 description: Generate your widgetbook components by annotating your widgets.
-version: 1.0.0
+version: 1.1.0
 homepage: https://github.com/jorre127/widget_book_generator
 repository: https://github.com/jorre127/widget_book_generator
 issue_tracker: https://github.com/jorre127/widget_book_generator/issues
@@ -17,7 +17,7 @@ dependencies:
     sdk: flutter
   glob: ^2.1.2
   source_gen: ^1.4.0
-  widget_book_widget_generator_annotations: ^1.0.0
+  widget_book_widget_generator_annotations: ^1.1.0
   widgetbook_annotation: ^3.0.0
   widgetbook_generator: ^3.9.1
 

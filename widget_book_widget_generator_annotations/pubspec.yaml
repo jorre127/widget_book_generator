@@ -1,6 +1,6 @@
 name: widget_book_widget_generator_annotations
 description: Generate your widgetbook components by annotating your widgets.
-version: 1.0.0
+version: 1.1.0
 homepage: https://github.com/jorre127/widget_book_widget_generator
 repository: https://github.com/jorre127/widget_book_widget_generator
 issue_tracker: https://github.com/jorre127/widget_book_widget_generator/issues
