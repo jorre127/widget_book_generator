@@ -47,7 +47,7 @@ Widget testProgressIndicatorUseCaseLight(BuildContext context) {
   type: TestButton,
 )
 Widget testButtonUseCase(BuildContext context) {
-  String text = context.knobs.string(label: 'text', initialValue: 'Override');
+  String text = context.knobs.string(label: 'text', initialValue: '{text}');
 
   void Function()? onClick = null;
 
@@ -77,7 +77,7 @@ Widget testButtonUseCase(BuildContext context) {
   type: TestButton,
 )
 Widget testButtonUseCaseText(BuildContext context) {
-  String text = context.knobs.string(label: 'text', initialValue: 'Override');
+  String text = context.knobs.string(label: 'text', initialValue: '{text}');
 
   void Function()? onClick = null;
 

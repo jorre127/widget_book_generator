@@ -59,7 +59,7 @@ class DataType {
           name: 'String',
           isEnum: false,
           isNullable: isNullable,
-          defaultValue: "''",
+          defaultValue: "'{$name}'",
           type: DataTypeEnum.string,
           typeString: typeString,
         ),

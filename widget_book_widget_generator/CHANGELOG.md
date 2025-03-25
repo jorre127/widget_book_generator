@@ -1,3 +1,7 @@
+## 1.2.0
+
+* Added better default values for strings, they are now automatically {parameterName}. This way you don't have a bunch of empty strings that won't be shown in the widget.
+
 ## 1.1.0
 
 * Added better handling of default values when overriding them through the WidgetBookWidgetField annotation
