@@ -8,6 +8,7 @@ import 'package:widget_book_widget_generator/src/type_checkers.dart';
 import 'package:widget_book_widget_generator/src/util/import_resolver.dart';
 
 class WidgetConfigCreator {
+  static final _unnamedConstructorName = 'new';
   final ImportResolver _importResolver;
 
   WidgetConfigCreator(List<LibraryElement> libs) : _importResolver = ImportResolver(libs);
@@ -43,7 +44,7 @@ class WidgetConfigCreator {
     final superFields = superWidget?.fields;
     final combinedFields = widget.fields.followedBy(superFields ?? []);
     final hasParent = path != null;
-    final combinedParameters = constructor.parameters;
+    final combinedParameters = constructor.formalParameters;
     final parameters = combinedParameters
         .map((parameter) => WidgetParameter.fromParameterElement(
               element: parameter,
@@ -77,15 +78,18 @@ class WidgetConfigCreator {
     );
 
     final name = widget.name;
+    final constructorName = constructor.name == _unnamedConstructorName ? null : constructor.name;
 
     return WidgetConfig(
       parameters: parameters,
-      fields: fields,
+      fields: Map.fromEntries(
+        fields.entries.where((entry) => entry.key != null && entry.key!.isNotEmpty).map((entry) => MapEntry(entry.key!, entry.value)),
+      ),
       widgetConfigs: widgetConfigs,
-      name: name,
+      name: name ?? '',
       import: _importResolver.resolveImport(widget),
-      path: path,
-      constructorName: constructor.name,
+      path: path ?? '',
+      constructorName: constructorName ?? '',
     );
   }
 }

@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // WidgetBookWidgetGenerator
@@ -15,92 +16,6 @@ import 'package:example/widget/test_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
-
-@UseCase(
-  name: 'TestProgressIndicator',
-  type: TestProgressIndicator,
-)
-Widget testProgressIndicatorUseCase(BuildContext context) {
-  bool dark = context.knobs.boolean(label: 'dark', initialValue: true);
-
-  return Center(child: TestProgressIndicator(dark: dark));
-}
-
-@UseCase(
-  name: 'TestProgressIndicator (dark)',
-  type: TestProgressIndicator,
-)
-Widget testProgressIndicatorUseCaseDark(BuildContext context) {
-  return Center(child: TestProgressIndicator.dark());
-}
-
-@UseCase(
-  name: 'TestProgressIndicator (light)',
-  type: TestProgressIndicator,
-)
-Widget testProgressIndicatorUseCaseLight(BuildContext context) {
-  return Center(child: TestProgressIndicator.light());
-}
-
-@UseCase(
-  name: 'TestButton',
-  type: TestButton,
-)
-Widget testButtonUseCase(BuildContext context) {
-  String text = context.knobs.string(label: 'text', initialValue: '{text}');
-
-  void Function()? onClick = null;
-
-  bool isExpanded =
-      context.knobs.boolean(label: 'isExpanded', initialValue: true);
-
-  bool isEnabled =
-      context.knobs.boolean(label: 'isEnabled', initialValue: false);
-
-  ButtonType buttonType = context.knobs.list(
-      label: 'buttonType',
-      initialOption: ButtonType.regular,
-      options: [ButtonType.regular, ButtonType.text]);
-
-  return Center(
-      child: TestButton(
-    text: text,
-    onClick: onClick,
-    isExpanded: isExpanded,
-    isEnabled: isEnabled,
-    buttonType: buttonType,
-  ));
-}
-
-@UseCase(
-  name: 'TestButton (text)',
-  type: TestButton,
-)
-Widget testButtonUseCaseText(BuildContext context) {
-  String text = context.knobs.string(label: 'text', initialValue: '{text}');
-
-  void Function()? onClick = null;
-
-  bool isExpanded =
-      context.knobs.boolean(label: 'isExpanded', initialValue: false);
-
-  bool isEnabled =
-      context.knobs.boolean(label: 'isEnabled', initialValue: false);
-
-  ButtonType buttonType = context.knobs.list(
-      label: 'buttonType',
-      initialOption: ButtonType.text,
-      options: [ButtonType.regular, ButtonType.text]);
-
-  return Center(
-      child: TestButton.text(
-    text: text,
-    onClick: onClick,
-    isExpanded: isExpanded,
-    isEnabled: isEnabled,
-    buttonType: buttonType,
-  ));
-}
 
 @UseCase(
   name: 'FlutterTemplateInputField',
@@ -250,6 +165,66 @@ Widget testBackButtonUseCaseDark(BuildContext context) {
 }
 
 @UseCase(
+  name: 'TestButton',
+  type: TestButton,
+)
+Widget testButtonUseCase(BuildContext context) {
+  String text = context.knobs.string(label: 'text', initialValue: '{text}');
+
+  void Function()? onClick = null;
+
+  bool isExpanded =
+      context.knobs.boolean(label: 'isExpanded', initialValue: true);
+
+  bool isEnabled =
+      context.knobs.boolean(label: 'isEnabled', initialValue: false);
+
+  ButtonType buttonType = context.knobs.list(
+      label: 'buttonType',
+      initialOption: ButtonType.regular,
+      options: [ButtonType.regular, ButtonType.text]);
+
+  return Center(
+      child: TestButton(
+    text: text,
+    onClick: onClick,
+    isExpanded: isExpanded,
+    isEnabled: isEnabled,
+    buttonType: buttonType,
+  ));
+}
+
+@UseCase(
+  name: 'TestButton (text)',
+  type: TestButton,
+)
+Widget testButtonUseCaseText(BuildContext context) {
+  String text = context.knobs.string(label: 'text', initialValue: '{text}');
+
+  void Function()? onClick = null;
+
+  bool isExpanded =
+      context.knobs.boolean(label: 'isExpanded', initialValue: false);
+
+  bool isEnabled =
+      context.knobs.boolean(label: 'isEnabled', initialValue: false);
+
+  ButtonType buttonType = context.knobs.list(
+      label: 'buttonType',
+      initialOption: ButtonType.text,
+      options: [ButtonType.regular, ButtonType.text]);
+
+  return Center(
+      child: TestButton.text(
+    text: text,
+    onClick: onClick,
+    isExpanded: isExpanded,
+    isEnabled: isEnabled,
+    buttonType: buttonType,
+  ));
+}
+
+@UseCase(
   name: 'TestCheckBox',
   type: TestCheckBox,
 )
@@ -263,6 +238,32 @@ Widget testCheckBoxUseCase(BuildContext context) {
     value: value,
     onChanged: onChanged,
   ));
+}
+
+@UseCase(
+  name: 'TestProgressIndicator',
+  type: TestProgressIndicator,
+)
+Widget testProgressIndicatorUseCase(BuildContext context) {
+  bool dark = context.knobs.boolean(label: 'dark', initialValue: true);
+
+  return Center(child: TestProgressIndicator(dark: dark));
+}
+
+@UseCase(
+  name: 'TestProgressIndicator (dark)',
+  type: TestProgressIndicator,
+)
+Widget testProgressIndicatorUseCaseDark(BuildContext context) {
+  return Center(child: TestProgressIndicator.dark());
+}
+
+@UseCase(
+  name: 'TestProgressIndicator (light)',
+  type: TestProgressIndicator,
+)
+Widget testProgressIndicatorUseCaseLight(BuildContext context) {
+  return Center(child: TestProgressIndicator.light());
 }
 
 @UseCase(

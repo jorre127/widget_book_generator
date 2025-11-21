@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: unused_import, prefer_relative_imports, directives_ordering
@@ -9,80 +10,96 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:example/widgetbook/widgetbook.usecases.dart' as _i2;
-import 'package:widgetbook/widgetbook.dart' as _i1;
+import 'package:example/widgetbook/widgetbook.usecases.dart'
+    as _example_widgetbook_widgetbook_usecases;
+import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
-final directories = <_i1.WidgetbookNode>[
-  _i1.WidgetbookFolder(
+final directories = <_widgetbook.WidgetbookNode>[
+  _widgetbook.WidgetbookFolder(
     name: 'widget',
     children: [
-      _i1.WidgetbookLeafComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'FlutterTemplateInputField',
-        useCase: _i1.WidgetbookUseCase(
-          name: 'FlutterTemplateInputField',
-          builder: _i2.flutterTemplateInputFieldUseCase,
-        ),
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'FlutterTemplateInputField',
+            builder: _example_widgetbook_widgetbook_usecases
+                .flutterTemplateInputFieldUseCase,
+          )
+        ],
       ),
-      _i1.WidgetbookComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'TestBackButton',
         useCases: [
-          _i1.WidgetbookUseCase(
+          _widgetbook.WidgetbookUseCase(
             name: 'TestBackButton',
-            builder: _i2.testBackButtonUseCase,
+            builder:
+                _example_widgetbook_widgetbook_usecases.testBackButtonUseCase,
           ),
-          _i1.WidgetbookUseCase(
+          _widgetbook.WidgetbookUseCase(
             name: 'TestBackButton (dark)',
-            builder: _i2.testBackButtonUseCaseDark,
+            builder: _example_widgetbook_widgetbook_usecases
+                .testBackButtonUseCaseDark,
           ),
-          _i1.WidgetbookUseCase(
+          _widgetbook.WidgetbookUseCase(
             name: 'TestBackButton (light)',
-            builder: _i2.testBackButtonUseCaseLight,
+            builder: _example_widgetbook_widgetbook_usecases
+                .testBackButtonUseCaseLight,
           ),
         ],
       ),
-      _i1.WidgetbookComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'TestButton',
         useCases: [
-          _i1.WidgetbookUseCase(
+          _widgetbook.WidgetbookUseCase(
             name: 'TestButton',
-            builder: _i2.testButtonUseCase,
+            builder: _example_widgetbook_widgetbook_usecases.testButtonUseCase,
           ),
-          _i1.WidgetbookUseCase(
+          _widgetbook.WidgetbookUseCase(
             name: 'TestButton (text)',
-            builder: _i2.testButtonUseCaseText,
+            builder:
+                _example_widgetbook_widgetbook_usecases.testButtonUseCaseText,
           ),
         ],
       ),
-      _i1.WidgetbookLeafComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'TestCheckBox',
-        useCase: _i1.WidgetbookUseCase(
-          name: 'TestCheckBox',
-          builder: _i2.testCheckBoxUseCase,
-        ),
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'TestCheckBox',
+            builder:
+                _example_widgetbook_widgetbook_usecases.testCheckBoxUseCase,
+          )
+        ],
       ),
-      _i1.WidgetbookComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'TestProgressIndicator',
         useCases: [
-          _i1.WidgetbookUseCase(
+          _widgetbook.WidgetbookUseCase(
             name: 'TestProgressIndicator',
-            builder: _i2.testProgressIndicatorUseCase,
+            builder: _example_widgetbook_widgetbook_usecases
+                .testProgressIndicatorUseCase,
           ),
-          _i1.WidgetbookUseCase(
+          _widgetbook.WidgetbookUseCase(
             name: 'TestProgressIndicator (dark)',
-            builder: _i2.testProgressIndicatorUseCaseDark,
+            builder: _example_widgetbook_widgetbook_usecases
+                .testProgressIndicatorUseCaseDark,
           ),
-          _i1.WidgetbookUseCase(
+          _widgetbook.WidgetbookUseCase(
             name: 'TestProgressIndicator (light)',
-            builder: _i2.testProgressIndicatorUseCaseLight,
+            builder: _example_widgetbook_widgetbook_usecases
+                .testProgressIndicatorUseCaseLight,
           ),
         ],
       ),
-      _i1.WidgetbookLeafComponent(
+      _widgetbook.WidgetbookComponent(
         name: 'TestSwitch',
-        useCase: _i1.WidgetbookUseCase(
-          name: 'TestSwitch',
-          builder: _i2.testSwitchUseCase,
-        ),
+        useCases: [
+          _widgetbook.WidgetbookUseCase(
+            name: 'TestSwitch',
+            builder: _example_widgetbook_widgetbook_usecases.testSwitchUseCase,
+          )
+        ],
       ),
     ],
   )
