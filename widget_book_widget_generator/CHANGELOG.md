@@ -1,3 +1,8 @@
+## 1.3.0
+
+* Updated dependencies
+* Support for new widget book dropdown knobs (3.16.0 and up)
+
 ## 1.2.0
 
 * Added better default values for strings, they are now automatically {parameterName}. This way you don't have a bunch of empty strings that won't be shown in the widget.
