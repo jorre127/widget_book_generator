@@ -22,7 +22,7 @@ import 'package:widgetbook_annotation/widgetbook_annotation.dart';
   type: FlutterTemplateInputField,
 )
 Widget flutterTemplateInputFieldUseCase(BuildContext context) {
-  String hint = context.knobs.list(
+  String hint = context.knobs.object.dropdown(
       label: 'hint',
       initialOption: 'emailAddress',
       options: ['emailAddress', 'username', 'password']);
@@ -31,8 +31,8 @@ Widget flutterTemplateInputFieldUseCase(BuildContext context) {
 
   List<String>? autoFillHints = null;
 
-  bool enabled = context.knobs
-      .list(label: 'enabled', initialOption: true, options: [true, false]);
+  bool enabled = context.knobs.object
+      .dropdown(label: 'enabled', initialOption: true, options: [true, false]);
 
   String? controllerText = context.knobs
       .stringOrNull(label: 'text (controller)', initialValue: null);
@@ -179,7 +179,7 @@ Widget testButtonUseCase(BuildContext context) {
   bool isEnabled =
       context.knobs.boolean(label: 'isEnabled', initialValue: false);
 
-  ButtonType buttonType = context.knobs.list(
+  ButtonType buttonType = context.knobs.object.dropdown(
       label: 'buttonType',
       initialOption: ButtonType.regular,
       options: [ButtonType.regular, ButtonType.text]);
@@ -209,7 +209,7 @@ Widget testButtonUseCaseText(BuildContext context) {
   bool isEnabled =
       context.knobs.boolean(label: 'isEnabled', initialValue: false);
 
-  ButtonType buttonType = context.knobs.list(
+  ButtonType buttonType = context.knobs.object.dropdown(
       label: 'buttonType',
       initialOption: ButtonType.text,
       options: [ButtonType.regular, ButtonType.text]);

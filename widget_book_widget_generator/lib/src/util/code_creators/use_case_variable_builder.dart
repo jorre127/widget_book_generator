@@ -64,6 +64,6 @@ class UseCaseVariableBuilder {
   }
 
   static String _buildListKnob({required String name, required String? initialValue, required String values}) {
-    return "context.knobs.list(label: '$name', initialOption: $initialValue, options: $values)";
+    return "context.knobs.object.dropdown(label: '$name', initialOption: $initialValue, options: $values)";
   }
 }
