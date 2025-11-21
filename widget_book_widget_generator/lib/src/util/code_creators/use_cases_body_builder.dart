@@ -17,7 +17,7 @@ class UseCasesBodyBuilder {
           return Method(
             (methodBuilder) => methodBuilder
               ..name = CaseUtil('${config.name}UseCase ${config.constructorName}').camelCase
-              ..returns = Reference('Widget')
+              ..returns = const Reference('Widget')
               ..requiredParameters.add(Parameter(
                 (parameterBuilder) => parameterBuilder
                   ..named = false

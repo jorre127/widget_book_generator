@@ -5,7 +5,7 @@ import 'package:widget_book_widget_generator/src/models/widget_parameter.dart';
 
 class WidgetBuilder {
   static Expression buildWidget({required String name, required Expression child, String? childParameterName}) =>
-      Reference(name).newInstance([], {'${childParameterName ?? 'child'}': child});
+      Reference(name).newInstance([], {childParameterName ?? 'child': child});
 
   static Expression buildWidgetFromConf(WidgetConfig child) {
     final namedParameters = child.parameters.where((parameter) => parameter.isNamed && parameter.type.type != DataTypeEnum.key);
@@ -14,7 +14,7 @@ class WidgetBuilder {
       child.name,
       if (child.constructorName.isNotEmpty) child.constructorName,
     ].join('.');
-    
+
     return Reference(className).newInstance(
       unnamedParameters.map((parameter) {
         final value = _getValue(child: child, parameter: parameter);

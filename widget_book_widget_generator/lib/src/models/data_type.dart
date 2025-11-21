@@ -154,6 +154,7 @@ class DataType {
     };
 
     if (dataType.type == DataTypeEnum.custom) {
+      // ignore: avoid_print
       print('Custom type $type of variable $name not recognized, default value is null');
     }
 
