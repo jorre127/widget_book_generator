@@ -14,7 +14,7 @@ class WidgetParameter {
   final int id;
   // Does not need to be parsed
   final Element? element;
-  final ParameterElement? parameterElement;
+  final FormalParameterElement? parameterElement;
 
   WidgetParameter({
     required this.name,
@@ -29,10 +29,10 @@ class WidgetParameter {
   });
 
   WidgetParameter.fromParameterElement({
-    required ParameterElement element,
+    required FormalParameterElement element,
     required ImportResolver importResolver,
     DartType? genericType,
-  })  : name = element.name,
+  })  : name = element.name ?? '',
         id = element.id,
         isRequired = element.isRequired,
         isNullable = element.type.nullabilitySuffix == NullabilitySuffix.question,
@@ -40,7 +40,7 @@ class WidgetParameter {
         isNamed = element.isNamed,
         type = DataType.fromDartType(
           type: element.type,
-          name: element.name,
+          name: element.name ?? '',
           importResolver: importResolver,
           genericType: genericType,
         ),

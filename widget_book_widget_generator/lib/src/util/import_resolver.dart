@@ -6,12 +6,14 @@ class ImportResolver {
   ImportResolver(this.libs);
 
   String? resolveImport(Element? element) {
-    if (element?.source == null || _isCoreDartType(element)) return null;
+    final library = element?.library;
+    if (library == null || library.isDartCore) return null;
+
     for (var lib in libs) {
-      if (!_isCoreDartType(lib) && lib.exportNamespace.definedNames.values.contains(element)) return lib.identifier;
+      if (!lib.isDartCore && lib.exportNamespace.definedNames2.values.contains(element)) {
+        return lib.firstFragment.source.uri.toString();
+      }
     }
     return null;
   }
-
-  bool _isCoreDartType(Element? element) => element?.source?.fullName == 'dart:core';
 }
