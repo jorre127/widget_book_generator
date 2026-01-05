@@ -43,7 +43,7 @@ class WidgetConfigCreator {
     final superFields = superWidget?.fields;
     final combinedFields = widget.fields.followedBy(superFields ?? []);
     final hasParent = path != null;
-    final combinedParameters = constructor.parameters;
+    final combinedParameters = constructor.formalParameters;
     final parameters = combinedParameters
         .map((parameter) => WidgetParameter.fromParameterElement(
               element: parameter,
@@ -51,7 +51,7 @@ class WidgetConfigCreator {
               genericType: typedArgument,
             ))
         .toList();
-    final fields = Map.fromEntries(combinedFields.map((field) => MapEntry(field.name, WidgetField.fromFieldElement(field))));
+    final fields = Map.fromEntries(combinedFields.where((field) => field.name != null).map((field) => MapEntry(field.name!, WidgetField.fromFieldElement(field))));
     final widgetConfigs = Map.fromEntries(
       parameters.where((parameter) => parameter.type.type == DataTypeEnum.custom && parameter.element is ClassElement && fields[parameter.name]?.ignore != true).map(
         (parameter) {
@@ -82,10 +82,10 @@ class WidgetConfigCreator {
       parameters: parameters,
       fields: fields,
       widgetConfigs: widgetConfigs,
-      name: name,
+      name: name ?? '',
       import: _importResolver.resolveImport(widget),
       path: path,
-      constructorName: constructor.name,
+      constructorName: constructor.name ?? '',
     );
   }
 }

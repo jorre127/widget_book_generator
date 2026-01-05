@@ -50,7 +50,7 @@ class DataType {
     final element = type.element;
 
     if (element is EnumElement) {
-      enumValues = element.fields.where((field) => field.isEnumConstant).map((field) => field.name).toList();
+      enumValues = element.fields.where((field) => field.isEnumConstant).map((field) => field.name ?? '').toList();
       import = importResolver.resolveImport(element);
     }
 
@@ -162,7 +162,7 @@ class DataType {
   }
 
   static String _getDefaultValueFunction(FunctionType type) {
-    final parameters = type.parameters.map((e) => '${e.type.getDisplayString(withNullability: true)} ${e.name}').join(', ');
+    final parameters = type.formalParameters.map((e) => '${e.type.getDisplayString(withNullability: true)} ${e.name}').join(', ');
     return '($parameters)${type.returnType.isDartAsyncFuture ? ' async' : ''} {}';
   }
 

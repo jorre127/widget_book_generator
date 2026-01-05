@@ -11,6 +11,6 @@ extension SpecExtension on Spec {
   String toDart({bool format = false}) {
     final result = accept(_emitter).toString();
     if (!format) return result;
-    return DartFormatter().format(result);
+    return DartFormatter(languageVersion: DartFormatter.latestLanguageVersion).format(result);
   }
 }
